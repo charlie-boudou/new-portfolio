@@ -16,7 +16,7 @@ export default function GeneralSetting({activeSetting}: IPastGeneralSettingProps
             </div>
             <div className='flex flex-col'>
                 {activeSetting.infos.map((info: IInfos) => (
-                    <div className='pb-[1.5rem]' key={generateId()}>
+                    <div className='pb-[1rem] md:pb-[1.5rem]' key={generateId()}>
                         <p className='pb-[.5rem]'>{`${info.title}:`}</p>
                         <div className='pl-[1rem]'>
                             {info.content.map((str: string | ILanguage) => {
