@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'MS Sans Serif';
+  src: url('/fonts/micross.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/fonts/Orbitron.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comic Sans MS';
+  src: url('/fonts/ComicSansMS.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.past-font {
+ font-family: 'MS Sans Serif', sans-serif;
+}
+
+.future-font {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.past-doc-font {
+  font-family: 'Comic Sans MS', sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@layer components {
+  .scrollbar-none {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .scrollbar-none::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+}
