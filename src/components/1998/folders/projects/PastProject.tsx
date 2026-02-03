@@ -52,7 +52,7 @@ export default function PastProject({projectName}: IPastProjectProps) {
                                 )}
                             </div>
                             <div className='w-full md:w-[50%] max-w-[50%] flex flex-col text-black items-center space-y-[1rem]'>
-                                <Image src="/images/stacks.png" alt="stacks" width={500} height={500} className="w-[15rem] h-[5rem]" />
+                                <Image src="/images/Stacks.png" alt="stacks" width={500} height={500} className="w-[15rem] h-[5rem]" />
                                 <div className='grid md:grid-cols-2 gap-4'>
                                     {project?.stacks && (
                                         <>

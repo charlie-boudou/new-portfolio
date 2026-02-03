@@ -110,7 +110,7 @@ export default function PastHome() {
         return (
           <PastWindowLayout 
             folder={folder as IFolder}
-            initialPos={ folder.name === t('shut') 
+            initialPos={ folder.name === t('shut') || folder.name === t('settings')
               ? getCenterPos(index) 
               : getInitialPos(folder as IFolder, index)
             }

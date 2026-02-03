@@ -121,7 +121,7 @@ export const folders= (t: TFunction): IFolder[] => [
       icon: <Settings className="w-[2.5rem] h-[2.5rem]"/>,
       name: t('settings'),
       component: <PastSettings />,
-      windowSize: 'w-[40vw] min-w-fit m-h-fit h-[50vh]'
+      windowSize: 'w-full md:w-[40vw] h-[50vh]'
     },
     {
       icon: <Computer3 className="w-[2.5rem] h-[2.5rem]"/>,
