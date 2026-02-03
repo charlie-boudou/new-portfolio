@@ -4,7 +4,7 @@ import PastSideBar from "@/components/1998/sidebar/PastSideBar";
 import { useContext } from "react";
 import PastWindowLayout from "@/components/1998/desktop/fileWindow/PastWindowLayout";
 import { DisplayContext } from "../../contexts/DisplayContext";
-import { IFolder } from "@/utils/types";
+import { IFolder, IList } from "@/utils/types";
 import PastOfficeIcon from "@/components/1998/desktop/PastOfficeIcon";
 import { folders } from "@/utils/datas";
 import { useTranslation } from "react-i18next";
@@ -104,12 +104,12 @@ export default function PastHome() {
       {pastWindowActive === t('shut') && (
         <div className="fixed inset-0 z-[90] bg-black/10" />
       )}
-      {openFolders.length > 0 && openFolders.map((folder: IFolder, index: number) => {
+      {openFolders.length > 0 && openFolders.map((folder: IFolder | IList, index: number) => {
         const responsiveSize = `max-md:!w-[90%] max-md:!left-[5%] ${folder.windowSize ? folder.windowSize : 'w-[40%] h-[50%]'}`;
 
         return (
           <PastWindowLayout 
-            folder={folder}
+            folder={folder as IFolder}
             initialPos={ folder.name === t('shut') 
               ? getCenterPos(index) 
               : getInitialPos(folder, index)
@@ -117,10 +117,10 @@ export default function PastHome() {
             minimize={folder.name !== t('settings') && folder.name !== t('shut')}
             resize={isResize(folder.name)}
             key={folder.name}
-            windowSize={responsiveSize} // Utilisation de la taille responsive
+            windowSize={responsiveSize}
             draggable={folder.name !== t('shut')}
           >
-            {folder.component}
+            {folder.component || null}
           </PastWindowLayout>
         );
       })}
