@@ -33,7 +33,7 @@ export default function FutureHome() {
             </div>
           </div>*/}
         </div>
-        <div className="w-full h-full relative flex items-center justify-center">
+        <div className="w-full h-full relative flex items-center justify-center text-white">
           UNDER CONSTRUCTION
           {/*<div className="relative w-[90%] md:w-[28%] h-[38%] md:h-[48%] flex items-center justify-center p-[2px] rounded-full bg-gradient-to-b from-cyan-400 to-[#CF5CCD] shadow-[0_0_20px_rgba(34,211,238,0.5)]">
             <div className="bg-slate-800 w-full h-full rounded-full p-[1rem] text-white flex items-center justify-center">
