@@ -1,7 +1,7 @@
 'use client';
 
 import { JSX, useContext } from 'react';
-import { DisplayContext } from '../../../contexts/DisplayContext';
+import { DisplayContext } from '../../../../contexts/DisplayContext';
 
 interface IPastTabButtonProps {
     title: string;

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect, useContext } from "react";
 import SubMenu from "./PastSubMenu";
-import { DisplayContext } from "../../../contexts/DisplayContext";
+import { DisplayContext } from "../../../../contexts/DisplayContext";
 
 
 export default function PastMenu() {

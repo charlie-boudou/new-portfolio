@@ -3,7 +3,7 @@
 import { IFolder, IList } from "@/utils/types";
 import Link from "next/link";
 import { useContext } from "react";
-import { DisplayContext } from "../../../contexts/DisplayContext";
+import { DisplayContext } from "../../../../contexts/DisplayContext";
 
 interface IPastSubMenuProps {
     folder: IFolder;

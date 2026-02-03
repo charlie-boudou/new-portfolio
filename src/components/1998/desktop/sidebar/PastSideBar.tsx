@@ -2,7 +2,7 @@
 
 import PastStartButton from "./PastStartButton";
 import PastMenu from "./PastMenu";
-import { DisplayContext } from '../../../contexts/DisplayContext';
+import { DisplayContext } from '../../../../contexts/DisplayContext';
 import { useContext } from 'react';
 import PastTime from "./PastTime";
 import PastTabsBar from "./PastTabsBar";

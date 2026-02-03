@@ -1,6 +1,6 @@
 'use client';
 
-import { DisplayContext } from '../../../contexts/DisplayContext';
+import { DisplayContext } from '../../../../contexts/DisplayContext';
 import { useContext } from 'react';
 import { IFolder } from '@/utils/types';
 import PastTabButton from "./PastTabButton";

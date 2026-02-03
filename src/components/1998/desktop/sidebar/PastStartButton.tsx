@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import  logoWindows from '../../../../public/images/logoWindows.png';
+import  logoWindows from '../../../../../public/images/logoWindows.png';
 import Image from 'next/image';
-import { DisplayContext } from '../../../contexts/DisplayContext';
+import { DisplayContext } from '../../../../contexts/DisplayContext';
 import { useContext } from 'react';
 
 export default function PastStartButton() {

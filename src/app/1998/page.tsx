@@ -1,6 +1,6 @@
 'use client';
 
-import PastSideBar from "@/components/1998/sidebar/PastSideBar";
+import PastSideBar from "@/components/1998/desktop/sidebar/PastSideBar";
 import { useContext } from "react";
 import PastWindowLayout from "@/components/1998/desktop/fileWindow/PastWindowLayout";
 import { DisplayContext } from "../../contexts/DisplayContext";
