@@ -18,7 +18,7 @@ export default function PastOfficeIcon({ initialPos, folder, absolutePosition, d
   const iconRef = useRef<HTMLDivElement>(null);
   const dragStart = useRef<Position>({ x: 0, y: 0 });
 
-  const [pos, setPos] = useState<Position>(initialPos);
+  const [pos, setPos] = useState<Position>(initialPos || { x: 0, y: 0 });
   const [dragging, setDragging] = useState<boolean>(false);
 
   const handleIconClick = () => {
