@@ -112,7 +112,7 @@ export default function PastHome() {
             folder={folder as IFolder}
             initialPos={ folder.name === t('shut') 
               ? getCenterPos(index) 
-              : getInitialPos(folder, index)
+              : getInitialPos(folder as IFolder, index)
             }
             minimize={folder.name !== t('settings') && folder.name !== t('shut')}
             resize={isResize(folder.name)}
