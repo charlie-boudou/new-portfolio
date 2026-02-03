@@ -133,7 +133,7 @@ export const folders= (t: TFunction): IFolder[] => [
 
 export const settings= (t: TFunction): ISetting[] => [
   {
-    icon: <Image src="/images/generalSetting1.png" alt="general" width={80} height={64} className="w-[10rem] h-[9.5rem]" />,
+    icon: <Image src="/images/generalSetting1.png" alt="general" width={80} height={64} className="w-[6rem] md:w-[10rem] h-[5.5rem] md:h-[9.5rem]" />,
     name: t('general'),
     infos: [
       {

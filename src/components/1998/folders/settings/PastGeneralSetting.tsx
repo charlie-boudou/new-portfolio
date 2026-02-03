@@ -11,7 +11,7 @@ export default function GeneralSetting({activeSetting}: IPastGeneralSettingProps
 
     return (
         <div className='w-full h-full flex space-x-[2rem] justify-center items-start'>
-            <div className='flex-shrink-0 justify-center mt-[1.5rem] pr-[3rem]'>
+            <div className='flex-shrink-0 justify-center mt-[1.5rem] pr-[.5rem] md:pr-[3rem]'>
                 {activeSetting.icon}
             </div>
             <div className='flex flex-col'>
