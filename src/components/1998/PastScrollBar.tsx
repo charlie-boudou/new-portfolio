@@ -1,11 +1,11 @@
 'use client';
 
-import { IFolder } from '@/utils/types';
+import { IFolder, IList, IAboutMe } from '@/utils/types';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 interface IPastScrollBarProps {
     scrollRef: RefObject<HTMLDivElement | null>;
-    projects: IFolder
+    projects: IFolder | IList | IAboutMe | string[]
 }
 
 export default function PastScrollBar({scrollRef, projects}: IPastScrollBarProps) {

@@ -2,7 +2,7 @@
 
 import { DisplayContext } from '../../../../contexts/DisplayContext';
 import { useContext } from 'react';
-import { IFolder } from '@/utils/types';
+import { IFolder, IList } from '@/utils/types';
 import PastTabButton from "./PastTabButton";
 
 export default function PastTabsBar() {
@@ -12,7 +12,7 @@ export default function PastTabsBar() {
         <div className="flex items-center space-x-[.3rem] flex-1 overflow-y-auto scrollbar-none h-full">
             <div className="border-l-2 border-r-2 border-l-[#7C7A7C] border-r-white h-[2rem] mr-1"/>
             <div className="flex items-center space-x-[.2rem] flex-1 overflow-y-auto scrollbar-none">
-                {openFolders.map((folder: IFolder) => (
+                {openFolders.map((folder: IFolder | IList) => (
                     <PastTabButton 
                         title={folder.name} 
                         icon={folder.icon} 

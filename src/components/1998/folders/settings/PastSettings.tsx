@@ -5,7 +5,7 @@ import { settings } from '@/utils/datas';
 import { useTranslation } from 'react-i18next';
 import PastGeneralSetting from './PastGeneralSetting';
 import PastLanguageSetting from './PastLanguageSetting';
-import { ISetting } from '@/utils/types';
+import { ISetting, IFolder } from '@/utils/types';
 import PastButton from '../../PastButton';
 import { closeWindow } from "@/utils/functions";
 import { DisplayContext } from '../../../../contexts/DisplayContext';
@@ -17,14 +17,14 @@ export default function PastSettings() {
 
     const [selected, setSelected] = useState(selectedLanguage);
     const [tabActive, setTabActive] = useState<string>(t('general'));
-    const activeSetting = settings(t).find((setting: ISetting) => setting.name === tabActive);
+    const activeSetting = settings(t).find((setting: ISetting) => setting.name === tabActive) as ISetting;
 
     const handleClick = (title: string) => {
         if(title === 'ok') {
             updateSelectedLanguage(selected);
             i18n.changeLanguage(selected);
         }
-        closeWindow(t('settings'), pastWindowActive, openFolders, updateOpenFolders, updatePastWindowActive);
+        closeWindow(t('settings'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
     };
 
     return (
@@ -66,7 +66,7 @@ export default function PastSettings() {
                     border-r-[#424242] 
                     border-b-[#424242]
                     flex-1
-                    ${activeSetting.name === t('general') ? 'p-[.5rem] md:p-[2rem]' : 'p-[.3rem] md:p-[1rem]'}
+                    ${activeSetting && activeSetting.name === t('general') ? 'p-[.5rem] md:p-[2rem]' : 'p-[.3rem] md:p-[1rem]'}
                 `}
             >
                 {activeSetting && activeSetting.name === t('general') ? (

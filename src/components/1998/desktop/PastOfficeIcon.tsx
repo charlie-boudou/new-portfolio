@@ -27,13 +27,13 @@ export default function PastOfficeIcon({ initialPos, folder, absolutePosition, d
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
     if (isTouchDevice) {
-      handleDoubleClick(folder);
+      handleDoubleClick(folder as IFolder);
     }
   };
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) =>
-      dragWindow(e, dragging, iconRef, dragStart, setPos),
+      dragWindow(e, dragging, iconRef as React.RefObject<HTMLDivElement>, dragStart, setPos),
     [dragging]
   );
 
@@ -65,7 +65,7 @@ export default function PastOfficeIcon({ initialPos, folder, absolutePosition, d
         select-none
       `}
       onClick={handleIconClick}
-      onDoubleClick={() => handleDoubleClick(folder)}
+      onDoubleClick={() => handleDoubleClick(folder as IFolder)}
     >
       <div className="w-full h-[3rem] flex items-center justify-center" >
         {folder.icon}

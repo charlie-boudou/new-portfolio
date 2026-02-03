@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { ICell } from "@/utils/functions";
+import { ICell } from "@/utils/types";
 import { createNewGrid } from '@/utils/functions';
 
 export default function PastMinesweeper() {

@@ -81,7 +81,7 @@ export default function PastAboutMe() {
                     </div>
                 </div>
             </div>
-            <PastScrollBar scrollRef={scrollRef} projects={aboutMe}/>
+            <PastScrollBar scrollRef={scrollRef} projects={aboutMe(t)}/>
         </div>
     );
 }

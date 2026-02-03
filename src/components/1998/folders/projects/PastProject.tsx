@@ -18,7 +18,7 @@ export default function PastProject({projectName}: IPastProjectProps) {
     const scrollRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
-    const project: IProject = projects(t).find((project: IProject) => project.name === projectName);
+    const project = projects(t).find((project: IProject) => project.name === projectName) as IProject;
     
     const handleClick = () => {
         router.push(project.link);

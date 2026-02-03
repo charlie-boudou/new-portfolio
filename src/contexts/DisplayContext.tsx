@@ -7,7 +7,7 @@ interface Display {
   isPastMenuActive: boolean;
   updateIsPastMenuActive: Dispatch<SetStateAction<boolean>>;
   openFolders: IFolder[] | IList[];
-  updateOpenFolders: Dispatch<SetStateAction<IFolder[]>>;
+  updateOpenFolders: Dispatch<SetStateAction<IFolder[] | IList[]>>;
   pastWindowActive: string;
   updatePastWindowActive: Dispatch<SetStateAction<string>>;
   hiddenFolders: string[];

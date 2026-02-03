@@ -36,18 +36,22 @@ export default function PastWindowLayout({ children, folder, minimize, initialPo
   const isMaximized = prevPos !== null;
 
   const handleMouseMove = useCallback(
-    (e: MouseEvent) => dragWindow(e, dragging, windowRef, dragStart, setPos),
+    (e: MouseEvent) => {
+      if (windowRef.current) {
+        dragWindow(e, dragging, windowRef as React.RefObject<HTMLDivElement>, dragStart, setPos);
+      }
+    },
     [dragging]
   );
 
   const handleMouseUp = useCallback(() => stopDrag(setDragging), []);
 
   const handleHidden = () => hideWindow(folder.name, pastWindowActive, updatePastWindowActive, updateHiddenFolders);
-  const handleClose = () => closeWindow(folder.name, pastWindowActive, openFolders, updateOpenFolders, updatePastWindowActive);
-  const handleMaximize = () => toggleMaximizeWindow(windowRef, pos, setPos, prevPos, setPrevPos, prevSize, setPrevSize);  
+  const handleClose = () => closeWindow(folder.name, pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
+  const handleMaximize = () => toggleMaximizeWindow(windowRef as React.RefObject<HTMLDivElement>, pos, setPos, prevPos, setPrevPos, prevSize, setPrevSize);  
   
   const handleResizeMove = useCallback((e: MouseEvent) => { 
-    resizeWindow(e, resizing, resizeStart, startSize, windowRef);
+    resizeWindow(e, resizing, resizeStart, startSize, windowRef as React.RefObject<HTMLDivElement>);
   },[resizing]);
   const handleResizeUp = useCallback(() => { 
     stopResize(setResizing);
@@ -118,7 +122,7 @@ export default function PastWindowLayout({ children, folder, minimize, initialPo
       {resize && (
         <div 
           className="absolute bottom-0 right-0 w-[1rem] h-[1rem] cursor-se-resize bg-transparent"
-          onMouseDown={(e) => startResize( e, resizeStart, startSize, windowRef, setResizing )}
+          onMouseDown={(e) => startResize( e, resizeStart, startSize, windowRef as React.RefObject<HTMLDivElement>, setResizing )}
         />
       )}
     </div>

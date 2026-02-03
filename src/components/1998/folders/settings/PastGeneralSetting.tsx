@@ -1,6 +1,6 @@
 'use client';
 
-import { IInfos, ISetting } from '@/utils/types';
+import { IInfos, ISetting, ILanguage } from '@/utils/types';
 
 interface IPastGeneralSettingProps {
     activeSetting: ISetting;
@@ -19,9 +19,14 @@ export default function GeneralSetting({activeSetting}: IPastGeneralSettingProps
                     <div className='pb-[1.5rem]' key={generateId()}>
                         <p className='pb-[.5rem]'>{`${info.title}:`}</p>
                         <div className='pl-[1rem]'>
-                            {info.content.map((str: string) => (
-                                <p key={generateId()}>{str}</p>
-                            ))}
+                            {info.content.map((str: string | ILanguage) => {
+                                if (typeof str === 'string') {
+                                    return (
+                                        <p key={generateId()}>{str}</p>
+                                    );
+                                }
+                                return;
+                            })}
                         </div>
                     </div>
                 ))}

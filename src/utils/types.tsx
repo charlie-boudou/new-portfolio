@@ -74,4 +74,5 @@ export type ICell = {
   isRevealed: boolean;
   isFlagged: boolean;
   neighborCount: number;
+  isQuestion?: boolean;
 };

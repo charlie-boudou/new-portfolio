@@ -13,7 +13,7 @@ export default function PastProjectsList() {
     const { openFolders, updateOpenFolders, hiddenFolders, updateHiddenFolders, updatePastWindowActive, updateSelectedIconOffice } = useContext(DisplayContext);
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const projects: IFolder = folders(t).find((folder: IFolder) => folder.name === t('projects'));
+    const projects: IFolder = folders(t).find((folder: IFolder) => folder.name === t('projects')) as IFolder;
 
     const handleDoubleClick = (project: IList) => {
         const isAlreadyOpen = openFolders.some(el => el.name === project.name);
@@ -35,7 +35,7 @@ export default function PastProjectsList() {
             <div className="flex h-full w-full overflow-y-auto scrollbar-none bg-white border-b-2 border-r-2 border-white shadow-[-1px_-1px_0_0_#808080]">
                 <div ref={scrollRef}  className="flex-1 overflow-y-auto scrollbar-none">
                     <div className="grid grid-rows-4 grid-flow-col gap-4 w-max px-[.5rem]">
-                        {projects.list.map((project: IList) => (
+                        {projects?.list?.map((project: IList) => (
                             <PastOfficeIcon
                                 key={generateId()}
                                 folder={project}
@@ -49,7 +49,9 @@ export default function PastProjectsList() {
             </div>
             <div className="shrink-0 mt-[.3rem] flex items-center h-[2rem] bg-[#BCBEBC] border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white">
                 <div className="flex-1 px-[.3rem] text-[.8rem] text-black truncate">
-                    {projects.list.length - 1} {t('file')}
+                    {projects && projects.list && (
+                        <>{projects.list.length - 1} {t('file')}</>
+                    )}
                 </div>
                 <div className="w-[7rem] h-full border-l-2 border-l-[#808080] shadow-[1px_0_0_0_white_inset]" />
             </div>    

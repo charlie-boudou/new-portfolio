@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import PastButton from '../../PastButton';
 import { closeWindow } from "@/utils/functions";
 import { useRouter } from 'next/navigation';
+import { IFolder } from '@/utils/types';
 
 export default function PastShutDown() {
     const { t } = useTranslation();
@@ -37,7 +38,7 @@ export default function PastShutDown() {
             }, 2000);
             return;
         }
-        closeWindow(t('shut'), pastWindowActive, openFolders, updateOpenFolders, updatePastWindowActive);
+        closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
     };
 
   return (

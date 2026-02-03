@@ -1,14 +1,13 @@
 'use client';
 
 import { folders } from "@/utils/datas";
-import { IFolder } from "@/utils/types";
+import { IFolder, IList } from "@/utils/types";
 import arrow from "@/assets/arrow.svg";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect, useContext } from "react";
 import SubMenu from "./PastSubMenu";
 import { DisplayContext } from "../../../../contexts/DisplayContext";
-
 
 export default function PastMenu() {
   const { t } = useTranslation();
@@ -18,13 +17,15 @@ export default function PastMenu() {
 
   const [activeMenu, setActiveMenu] = useState<string>("");
 
-  const handleClick = (folder: IFolder) => {
+  const handleClick = (folder: IFolder | IList) => {
     const isAlreadyOpen = openFolders.some(f => f.name === folder.name);
 
-    if (folder.list && folder.list.length > 0 && folder.name !== t('shut')) { return; }
+    if ('list' in folder && folder.list && folder.list.length > 0 && folder.name !== t('shut')) { 
+      return; 
+    }
 
     if (!isAlreadyOpen) {
-      updateOpenFolders(prev => [...prev, folder]);
+      updateOpenFolders((prev: (IFolder | IList)[]) => [...prev, folder]);
     }
 
     updateIsPastMenuActive(!isPastMenuActive);

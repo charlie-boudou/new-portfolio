@@ -13,18 +13,18 @@ export default function PastSettings() {
     const generateId = () => crypto.randomUUID();
     const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
 
-    const contacts = openFolders.find((folder) => folder.name === t('contact')) as IFolder | undefined;
+    const contacts = openFolders.find((folder: IFolder | IList) => folder.name === t('contact')) as IFolder | undefined;
     const [tabActive, setTabActive] = useState<string>('GitHub');
-    const activeContact = contacts.list.find((contact: IList) => contact.name === tabActive);
+    const activeContact = contacts?.list?.find((contact: IList) => contact.name === tabActive);
 
     const handleClick = () => {
-        closeWindow(t('contact'), pastWindowActive, openFolders, updateOpenFolders, updatePastWindowActive);
+        closeWindow(t('contact'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
     };
 
     return (
         <div className='w-full h-full flex flex-col p-[.3rem]'>
             <div className='flex items-center w-full'>
-                {contacts && contacts.list.map((contact: IList, index: number) => {
+                {contacts && contacts.list && contacts.list.map((contact: IList, index: number) => {
                     const isActive = tabActive === contact.name;
                     return (
                         <div 
@@ -64,14 +64,18 @@ export default function PastSettings() {
                 `}
             >
                 <div className='flex items-center space-x-[1rem]'>
-                    {activeContact.icon}
-                    <Link
-                        key={generateId()}
-                        href={activeContact.href}
-                        className='underline decoration-solid text-[#030171]'
-                    >
-                        {activeContact.namme === 'GMail' ? `${activeContact.href.replace('mailto:', '')}` : `${activeContact.href}`}
-                    </Link>
+                    {activeContact && activeContact.href && (
+                        <>
+                            {activeContact.icon}
+                            <Link
+                                key={generateId()}
+                                href={activeContact.href}
+                                className='underline decoration-solid text-[#030171]'
+                            >
+                                {activeContact.name === 'GMail' ? `${activeContact.href.replace('mailto:', '')}` : `${activeContact.href}`}
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
             <div className='w-full flex items-center justify-end space-x-[.5rem]' style={{ marginTop: "1rem"}}>
