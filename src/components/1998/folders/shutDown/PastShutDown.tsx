@@ -31,7 +31,7 @@ export default function PastShutDown() {
             updateOpenFolders([]);
             updatePastWindowActive('');
 
-            const targetPath = selectedAction === t('goFuture') ? '/futureHome' : '/';
+            const targetPath = selectedAction === t('goFuture') ? '/2077' : '/';
 
             setTimeout(() => {
                 router.push(targetPath);
