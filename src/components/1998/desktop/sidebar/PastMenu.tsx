@@ -20,8 +20,12 @@ export default function PastMenu() {
   const handleClick = (folder: IFolder | IList) => {
     const isAlreadyOpen = openFolders.some(f => f.name === folder.name);
 
-    if ('list' in folder && folder.list && folder.list.length > 0 && folder.name !== t('shut')) { 
-      return; 
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (!isTouchDevice) {
+      if ('list' in folder && folder.list && folder.list.length > 0 && folder.name !== t('shut')) { 
+        return; 
+      }
     }
 
     if (!isAlreadyOpen) {

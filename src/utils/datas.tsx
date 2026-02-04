@@ -34,12 +34,6 @@ export const folders= (t: TFunction): IFolder[] => [
       windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
     },
     {
-      icon: <Wangimg128 className="w-[2.5rem] h-[2.5rem]"/>,
-      name: "Images",
-      component: <PastImageViewer />,
-      windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
-    },
-    {
       icon: <FolderFile className="w-[2.5rem] h-[2.5rem]"/>,
       name: t('projects'),
       component: <PastProjectsList />,
@@ -110,6 +104,12 @@ export const folders= (t: TFunction): IFolder[] => [
           href: 'mailto:charlie.lcb3@gmail.com'
         },
       ]
+    },
+    {
+      icon: <Wangimg128 className="w-[2.5rem] h-[2.5rem]"/>,
+      name: "Images",
+      component: <PastImageViewer />,
+      windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
     },
     {
       icon: <Winmine1 className="w-[2rem] h-[2rem]"/>,
@@ -336,9 +336,9 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
     name: 'Le Comptoir des Arcs',
     description: t('opx'),
-    title: "/images/lecomptoirdesarcs.png",
+    title: "/images/lecomptoirdesarcsTitle.png",
     pictures: ['/images/memories.png', '/images/memories1.png', '/images/memories2.png', '/images/memories3.png', '/images/memories4.png'],
-    stacks: [ 'REACT NATIVE', 'NODE.JS'],
-    link: 'https://github.com/charlie-boudou/memories-frontend'
+    stacks: [ 'REACT', 'NEXT.JS', 'TYPESCRIPT'],
+    link: 'https://www.conciergerie-services-savoie.fr/'
   },
 ]);
