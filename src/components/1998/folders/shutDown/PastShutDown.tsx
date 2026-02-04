@@ -35,7 +35,7 @@ export default function PastShutDown() {
 
             setTimeout(() => {
                 router.push(targetPath);
-            }, 2000);
+            }, 150);
             return;
         }
         closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);

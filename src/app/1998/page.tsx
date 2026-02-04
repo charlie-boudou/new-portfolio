@@ -80,7 +80,7 @@ export default function PastHome() {
   };
 
   return (
-    <div className="relative past-font cursor-default w-screen h-screen max-h-screen bg-[url('/images/pastBackground.jpg')] bg-cover bg-center">
+    <div className="relative past-font cursor-default w-screen h-screen max-h-screen bg-[url('/images/pastBackground.jpg')] bg-cover bg-center bg-no-repeat">
       {folders(t)
         .filter((folder: IFolder) => folder.name !== t('shut'))
         .map((folder: IFolder, index: number) => {
