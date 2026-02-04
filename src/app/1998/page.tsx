@@ -1,7 +1,7 @@
 'use client';
 
 import PastSideBar from "@/components/1998/desktop/sidebar/PastSideBar";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import PastWindowLayout from "@/components/1998/desktop/fileWindow/PastWindowLayout";
 import { DisplayContext } from "../../contexts/DisplayContext";
 import { IFolder, IList } from "@/utils/types";
@@ -13,6 +13,7 @@ export default function PastHome() {
   const { t } = useTranslation();
   const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive, hiddenFolders, updateHiddenFolders, updateSelectedIconOffice } = useContext(DisplayContext);
   const generateId = () => crypto.randomUUID();
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const isResize = (name: string) => {
     return name !== t('settings') && name !== t('shut') && name !== t('contact') && name !== t('minesweeper');
@@ -79,6 +80,20 @@ export default function PastHome() {
     updateSelectedIconOffice('');
   };
 
+  useEffect(() => {
+    const playStartupSound = async () => {
+      if (audioRef.current) {
+        try {
+          await audioRef.current.play();
+        } catch (err) {
+          console.log("L'auto-play a été bloqué par le navigateur. Le son jouera après la première interaction.");
+        }
+      }
+    };
+
+    playStartupSound();
+  }, []);
+
   return (
     <div className="relative past-font cursor-default w-screen h-screen max-h-screen bg-[url('/images/pastBackground.jpg')] bg-cover bg-center bg-no-repeat">
       {folders(t)
@@ -125,6 +140,7 @@ export default function PastHome() {
         );
       })}
       <PastSideBar />
+      <audio ref={audioRef} src="/sound/windows-98-startup.mp3" preload="auto" />
     </div>
   )
 }

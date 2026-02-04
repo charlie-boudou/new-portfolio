@@ -19,26 +19,43 @@ export default function PastShutDown() {
 
     const [selectedAction, setSelectedAction] = useState('Shut Down');
 
-    const handleClick = (title: string) => {
+    const handleClick = async (title: string) => {
         if (title === 'ok') {
             if (selectedAction === t('restart')) {
                 window.location.reload();
                 return;
             }
 
-            audioRef.current?.play().catch(err => console.error("Erreur audio:", err));
-
-            updateOpenFolders([]);
-            updatePastWindowActive('');
-
             const targetPath = selectedAction === t('goFuture') ? '/2077' : '/';
 
-            setTimeout(() => {
-                router.push(targetPath);
-            }, 150);
+            if (audioRef.current) {
+                try {
+                    audioRef.current.currentTime = 0; 
+                    await audioRef.current.play();
+                    
+                    audioRef.current.onended = () => {
+                        updateOpenFolders([]);
+                        updatePastWindowActive('');
+                        router.push(targetPath);
+                    };
+                } catch (err) {
+                    console.log("Audio bloqué ou erreur", err);
+                    performFallbackRedirect(targetPath);
+                }
+            } else {
+                performFallbackRedirect(targetPath);
+            }
             return;
         }
         closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
+    };
+
+    const performFallbackRedirect = (path: string) => {
+        updateOpenFolders([]);
+        updatePastWindowActive('');
+        setTimeout(() => {
+            router.push(path);
+        }, 1500); 
     };
 
   return (
@@ -77,7 +94,7 @@ export default function PastShutDown() {
             <PastButton main title="OK" handleClick={() => handleClick('ok')} />
             <PastButton title="Cancel" handleClick={() => handleClick('cancel')} />
         </div>
-        <audio ref={audioRef} src="/sound/windows-98-sound.mp3" preload="auto" />
+        <audio ref={audioRef} src="/sound/windows-98-shutdown.mp3" preload="auto" />
     </div>
   );
 }
