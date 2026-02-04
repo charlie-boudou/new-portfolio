@@ -1,11 +1,11 @@
 import FutureProjectsList from "@/components/2077/FutureProjectsList";
 import Image from "next/image";
-import Link from "next/link";
+
 
 export default function FutureHome() {
   return (
     <div className="w-full h-screen p-[1rem] future-font bg-[url('/images/futureBackground.jpg')] bg-cover bg-center bg-no-repeat">
-      <div className="w-full h-full">
+      <div className="relative w-full h-full flex items-center justify-center">
         <svg 
           className="absolute inset-0 w-full h-full pointer-events-none" 
           viewBox="0 0 100 100" 
@@ -26,61 +26,62 @@ export default function FutureHome() {
             <line x1="30" y1="3" x2="70" y2="3" stroke="#22d3ee" strokeWidth="10" vectorEffect="non-scaling-stroke" />
             <line x1="30" y1="97" x2="70" y2="97" stroke="#22d3ee" strokeWidth="10" vectorEffect="non-scaling-stroke" />
         </svg>
-        <div className="relative w-full flex items-center justify-end">
-          {/*<div className="relative w-[30%] top-[5rem] right-[5rem] flex items-center justify-center p-[2px] rounded-[1rem] bg-cyan-400">
-            <div className="bg-slate-800 w-full h-full rounded-[1rem] p-[1rem] text-white flex flex-col items-center justify-center space-y-[.5rem]">
-              <p>about me</p>
-              <Image src="/images/me.png" alt="picture" width={400} height={400} className="w-[6rem] h-[8rem]" />
+        <div className="grid gap-4 absolute top-[9%] left-[3%] w-[94%] h-full grid-rows-6 grid-cols-10 p-[2rem]">
+          <div className="border row-span-3 col-span-3">1</div>
+          <div className="border row-span-5 col-span-4 relative flex items-center justify-center">
+            <div className="relative w-[90%] h-[70%] flex items-center justify-center p-[.5rem] rounded-full bg-gradient-to-b from-cyan-400 to-[#CF5CCD] shadow-[0_0_20px_rgba(34,211,238,0.5)]">
+              <div className="w-full h-full bg-slate-800 rounded-full p-[.8rem] flex items-center justify-center">
+                <div className="w-full h-full bg-cyan-400 rounded-full p-[.2rem] flex items-center justify-center">
+                  <div className="w-full h-full bg-slate-800 rounded-full p-[.2rem] flex items-center justify-center">
+<svg 
+  className="absolute inset-0 w-full h-full pointer-events-none" 
+  viewBox="0 0 100 100" 
+  preserveAspectRatio="xMidYMid meet" // Important pour que le HUD reste rond
+  style={{ overflow: 'visible' }}
+>
+
+  {/* --- 2. LE HUD CIRCULAIRE --- */}
+  <g className="hud-center">
+    
+    {/* Anneau principal segmenté (épais) */}
+    <circle 
+      cx="50" cy="50" r="38" 
+      fill="none" 
+      stroke="#22d3ee" 
+      strokeWidth="3" 
+      strokeDasharray="32 0 32 0 32 0" // Crée les segments irréguliers
+      vectorEffect="non-scaling-stroke"
+      opacity="0.8"
+    />
+
+    {/* Anneau interne avec encoches (segments plus courts) */}
+    <circle 
+      cx="50" cy="50" r="32" 
+      fill="none" 
+      stroke="#22d3ee" 
+      strokeWidth="1.5" 
+      strokeDasharray="2 4" // Petits pointillés techniques
+      vectorEffect="non-scaling-stroke"
+      opacity="0.6"
+    />
+  </g>
+
+</svg>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>*/}
-        </div>
-        <div className="w-full h-full relative flex flex-col items-center justify-center text-white">
-          UNDER CONSTRUCTION
-          <Link 
-            className={`
-              relative
-              px-[1.5rem] 
-              py-[.5rem] 
-              outline-none 
-              w-fit 
-              text-[1rem]
-              md:text-[1.5rem] 
-              text-center 
-              cursor-pointer
-              past-font
-              flex items-center justify-center
-              text-[#22d3ee]
-              mt-[.5rem]
-            `}
-            href="/"
-          >
-            <svg 
-                className="absolute inset-0 w-full h-full pointer-events-none" 
-                viewBox="0 0 100 100" 
-                preserveAspectRatio="none"
-                style={{ overflow: 'visible' }}
-            >
-                <path 
-                    d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
-                    fill="rgba(15, 23, 42, 0.4)" 
-                />
-                <path 
-                    d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
-                    fill="none" 
-                    stroke="#22d3ee" 
-                    strokeWidth="2" 
-                    vectorEffect="non-scaling-stroke"
-                />
-                <line x1="30" y1="0" x2="70" y2="0" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
-                <line x1="30" y1="100" x2="70" y2="100" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
-            </svg>
-            <p className="relative z-10">Home</p>
-          </Link>
-          {/*<div className="relative w-[90%] md:w-[28%] h-[38%] md:h-[48%] flex items-center justify-center p-[2px] rounded-full bg-gradient-to-b from-cyan-400 to-[#CF5CCD] shadow-[0_0_20px_rgba(34,211,238,0.5)]">
-            <div className="bg-slate-800 w-full h-full rounded-full p-[1rem] text-white flex items-center justify-center">
-              <FutureProjectsList /> 
-            </div>
-          </div>*/}
+            {/*<div className="relative w-[90%] h-[70%] flex items-center justify-center p-[2px] rounded-full bg-gradient-to-b from-cyan-400 to-[#CF5CCD] shadow-[0_0_20px_rgba(34,211,238,0.5)]">
+                <div className="bg-slate-800 w-full h-full rounded-full p-[1rem] text-white flex items-center justify-center">
+                  <FutureProjectsList />
+                </div>
+            </div>*/}
+          </div>
+          <div className="border row-span-2 col-span-3 flex items-center justify-center">
+            3
+          </div>
+          <div className="border row-span-3 col-span-3">4</div>
+          <div className="border row-span-2 col-span-3 col-start-1">5</div>
         </div>
       </div>
     </div>

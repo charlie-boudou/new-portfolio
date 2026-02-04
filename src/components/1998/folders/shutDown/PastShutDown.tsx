@@ -17,7 +17,7 @@ export default function PastShutDown() {
     
     const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
 
-    const [selectedAction, setSelectedAction] = useState('Shut Down');
+    const [selectedAction, setSelectedAction] = useState(t('shut'));
 
     const handleClick = async (title: string) => {
         if (title === 'ok') {

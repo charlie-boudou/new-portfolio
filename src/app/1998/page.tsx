@@ -25,18 +25,18 @@ export default function PastHome() {
   const START_Y = 32;
   const ICONS_PER_COLUMN = 7;
 
-  const getCenterPos = (index: number) => {
-    const screenW = window.innerWidth;
-    const screenH = window.innerHeight;
+ const getCenterPos = (index: number) => {
+  const screenW = typeof window !== 'undefined' ? window.innerWidth : 1200;
+  const screenH = typeof window !== 'undefined' ? window.innerHeight : 800;
 
-    const winW = screenW * 0.3; 
-    const winH = screenH * 0.3;
+  const winW = 600; 
+  const winH = 400;
 
-    return {
-      x: (screenW / 2) - (winW / 2) + (index * 20),
-      y: (screenH / 2) - (winH / 2) + (index * 20),
-    };
+  return {
+    x: (screenW / 2) - (winW / 2) + (index * 2), 
+    y: (screenH / 2) - (winH / 2) + (index * 2),
   };
+};
 
   const getInitialPos = (folder: IFolder, index: number) => {
     const isMobile = window.innerWidth < 768;
@@ -105,10 +105,13 @@ export default function PastHome() {
           return (
             <PastOfficeIcon
               key={generateId()}
-              initialPos={{
-                x: START_X + column * ICON_WIDTH,
-                y: START_Y + row * ICON_HEIGHT,
-              }}
+              initialPos={ 
+                folder.name === t('shut') 
+                  ? getCenterPos(index) 
+                  : {
+                      x: START_X + column * ICON_WIDTH,
+                      y: START_Y + row * ICON_HEIGHT,
+                    }}
               folder={folder}
               absolutePosition={true}
               draggable

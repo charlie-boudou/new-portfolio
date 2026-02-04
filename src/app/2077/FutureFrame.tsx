@@ -1,50 +1,50 @@
 'use client';
 
-interface IFutureFrameProps {
-    children: React.ReactNode;
-}
-export default function FutureFrame({children}: IFutureFrameProps) {
+import Link from "next/link";
+export default function FutureFrame() {
   return (
-    <div className="relative p-8 min-h-[400px] w-full max-w-4xl mx-auto">
-      {/* SVG de fond pour la forme complexe */}
-      <svg 
-        className="absolute inset-0 w-full h-full pointer-events-none" 
-        viewBox="0 0 100 100" 
-        preserveAspectRatio="none"
+    <div className="w-full h-full relative flex flex-col items-center justify-center text-white">
+      UNDER CONSTRUCTION
+      <Link 
+        className={`
+          relative
+          px-[1.5rem] 
+          py-[.5rem] 
+          outline-none 
+          w-fit 
+          text-[1rem]
+          md:text-[1.5rem] 
+          text-center 
+          cursor-pointer
+          past-font
+          flex items-center justify-center
+          text-[#22d3ee]
+          mt-[.5rem]
+        `}
+        href="/"
       >
-        {/* Fond sombre translucide */}
-        <path 
-          d="M 10,0 L 85,0 L 100,15 L 100,85 L 90,100 L 15,100 L 0,85 L 0,15 Z" 
-          fill="rgba(15, 23, 42, 0.6)"
-          className="backdrop-blur-xl"
-        />
-        
-        {/* Bordure principale Cyan */}
-        <path 
-          d="M 10,0 L 85,0 L 100,15 L 100,85 L 90,100 L 15,100 L 0,85 L 0,15 Z" 
-          fill="none" 
-          stroke="#22d3ee" 
-          strokeWidth="0.5" 
-          vectorEffect="non-scaling-stroke"
-          className="opacity-50"
-        />
-
-        {/* Détails d'angles (Double lignes) */}
-        <path d="M 0,30 L 0,15 L 15,0 L 40,0" fill="none" stroke="#22d3ee" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        <path d="M 60,100 L 90,100 L 100,90 L 100,70" fill="none" stroke="#22d3ee" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        
-        {/* Éléments décoratifs (petits blocs) */}
-        <rect x="80" y="0" width="5" height="1" fill="#22d3ee" vectorEffect="non-scaling-stroke" />
-        <rect x="0" y="80" width="1" height="10" fill="#22d3ee" vectorEffect="non-scaling-stroke" />
-        
-        {/* Scan line décorative sur le côté */}
-        <line x1="102" y1="20" x2="102" y2="50" stroke="#f43f5e" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-      </svg>
-
-      {/* Contenu interne */}
-      <div className="relative z-10 font-mono text-cyan-400">
-        {children}
-      </div>
+        <svg 
+            className="absolute inset-0 w-full h-full pointer-events-none" 
+            viewBox="0 0 100 100" 
+            preserveAspectRatio="none"
+            style={{ overflow: 'visible' }}
+        >
+            <path 
+                d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
+                fill="rgba(15, 23, 42, 0.4)" 
+            />
+            <path 
+                d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
+                fill="none" 
+                stroke="#22d3ee" 
+                strokeWidth="2" 
+                vectorEffect="non-scaling-stroke"
+            />
+            <line x1="30" y1="0" x2="70" y2="0" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
+            <line x1="30" y1="100" x2="70" y2="100" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
+        </svg>
+        <p className="relative z-10">Home</p>
+      </Link>
     </div>
   );
 }
