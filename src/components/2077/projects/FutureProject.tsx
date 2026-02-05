@@ -2,10 +2,9 @@
 
 import { useContext} from "react";
 import { DisplayContext } from "../../../contexts/DisplayContext";
-import { IFolder } from "../../utils/types";
 import { useTranslation } from 'react-i18next';
 import { projects } from '@/utils/datas';
-import { IProject } from '@/utils/types';
+import { IProject, IFolder } from '@/utils/types';
 import { useRouter } from 'next/navigation';
 import { hideWindow, closeWindow } from "@/utils/functions";
 

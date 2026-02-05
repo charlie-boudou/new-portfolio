@@ -15,7 +15,7 @@ export default function FutureProjectIcon({project, handleClick, i}: IFutureProj
             style={{
                 transform: `rotate(${i * 60}deg) translate(150px) rotate(-${i * 60}deg)`,
             }}
-            onClick={() => handleClick(project)}
+            onClick={() => handleClick(project as IFolder)}
         >
             <div 
                 className="absolute inset-0 bg-cyan-400 group-hover:bg-[#CF5CCD] transition-colors duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
