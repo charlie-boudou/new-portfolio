@@ -1,8 +1,31 @@
-import FutureProjectsList from "@/components/2077/FutureProjectsList";
-import Image from "next/image";
+'use client';
+
+import FutureProjectsList from "@/components/2077/projects/FutureProjectsList";
+import { useContext} from "react";
+import { DisplayContext } from "../../contexts/DisplayContext";
+import { IFolder, IList } from "../../utils/types";
+import FutureProject from "../../components/2077/projects/FutureProject";
+import FutureProjectIcon from '../../components/2077/projects/FutureProjectIcon';
+import { useRouter } from 'next/navigation';
 
 
 export default function FutureHome() {
+  const router = useRouter();
+  const generateId = () => crypto.randomUUID();
+  const { openFolders, updateOpenFolders, hiddenFolders, updateHiddenFolders, updatePastWindowActive, updateSelectedIconOffice } = useContext(DisplayContext);
+
+  const handleClick = (project: IList) => {
+          const isAlreadyOpen = openFolders.some(el => el.name === project.name);
+          if (!isAlreadyOpen) {
+              const arr = hiddenFolders.filter(el => el !== project.name);
+      
+              updateOpenFolders(prev => [...prev, project]);
+              updateHiddenFolders(arr);
+          }
+              updatePastWindowActive(project.name);
+              updateSelectedIconOffice('');
+  };
+
   return (
     <div className="w-full h-screen p-[1rem] future-font bg-[url('/images/futureBackground.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="relative w-full h-full flex items-center justify-center">
@@ -26,63 +49,75 @@ export default function FutureHome() {
             <line x1="30" y1="3" x2="70" y2="3" stroke="#22d3ee" strokeWidth="10" vectorEffect="non-scaling-stroke" />
             <line x1="30" y1="97" x2="70" y2="97" stroke="#22d3ee" strokeWidth="10" vectorEffect="non-scaling-stroke" />
         </svg>
-        <div className="grid gap-4 absolute top-[9%] left-[3%] w-[94%] h-full grid-rows-6 grid-cols-10 p-[2rem]">
-          <div className="border row-span-3 col-span-3">1</div>
-          <div className="border row-span-5 col-span-4 relative flex items-center justify-center">
-            <div className="relative w-[90%] h-[70%] flex items-center justify-center p-[.5rem] rounded-full bg-gradient-to-b from-cyan-400 to-[#CF5CCD] shadow-[0_0_20px_rgba(34,211,238,0.5)]">
-              <div className="w-full h-full bg-slate-800 rounded-full p-[.8rem] flex items-center justify-center">
-                <div className="w-full h-full bg-cyan-400 rounded-full p-[.2rem] flex items-center justify-center">
-                  <div className="w-full h-full bg-slate-800 rounded-full p-[.2rem] flex items-center justify-center">
-<svg 
-  className="absolute inset-0 w-full h-full pointer-events-none" 
-  viewBox="0 0 100 100" 
-  preserveAspectRatio="xMidYMid meet" // Important pour que le HUD reste rond
-  style={{ overflow: 'visible' }}
->
-
-  {/* --- 2. LE HUD CIRCULAIRE --- */}
-  <g className="hud-center">
-    
-    {/* Anneau principal segmenté (épais) */}
-    <circle 
-      cx="50" cy="50" r="38" 
-      fill="none" 
-      stroke="#22d3ee" 
-      strokeWidth="3" 
-      strokeDasharray="32 0 32 0 32 0" // Crée les segments irréguliers
-      vectorEffect="non-scaling-stroke"
-      opacity="0.8"
-    />
-
-    {/* Anneau interne avec encoches (segments plus courts) */}
-    <circle 
-      cx="50" cy="50" r="32" 
-      fill="none" 
-      stroke="#22d3ee" 
-      strokeWidth="1.5" 
-      strokeDasharray="2 4" // Petits pointillés techniques
-      vectorEffect="non-scaling-stroke"
-      opacity="0.6"
-    />
-  </g>
-
-</svg>
-                  </div>
-                </div>
-              </div>
+        <div className="text-white z-50 flex flex-col space-y-[1rem] items-center">
+          UNDER CONSTRUCTION
+          <div 
+            className={`
+                relative
+                px-[1.5rem] 
+                py-[.5rem] 
+                outline-none 
+                w-fit 
+                text-[1rem]
+                md:text-[1.5rem] 
+                text-center 
+                cursor-pointer
+                past-font
+                flex items-center justify-center
+                text-[#22d3ee]
+                mt-[1rem]
+            `}
+            onClick={() => router.push('/')}
+          >
+              <svg 
+                  className="absolute inset-0 w-full h-full pointer-events-none" 
+                  viewBox="0 0 100 100" 
+                  preserveAspectRatio="none"
+                  style={{ overflow: 'visible' }}
+              >
+                  <path 
+                      d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
+                      fill="rgba(15, 23, 42, 0.4)" 
+                  />
+                  <path 
+                      d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
+                      fill="none" 
+                      stroke="#22d3ee" 
+                      strokeWidth="2" 
+                      vectorEffect="non-scaling-stroke"
+                  />
+                  <line x1="30" y1="0" x2="70" y2="0" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
+                  <line x1="30" y1="100" x2="70" y2="100" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
+              </svg>
+              <p className="relative z-10">Home</p>
             </div>
-            {/*<div className="relative w-[90%] h-[70%] flex items-center justify-center p-[2px] rounded-full bg-gradient-to-b from-cyan-400 to-[#CF5CCD] shadow-[0_0_20px_rgba(34,211,238,0.5)]">
-                <div className="bg-slate-800 w-full h-full rounded-full p-[1rem] text-white flex items-center justify-center">
-                  <FutureProjectsList />
-                </div>
-            </div>*/}
-          </div>
-          <div className="border row-span-2 col-span-3 flex items-center justify-center">
-            3
-          </div>
-          <div className="border row-span-3 col-span-3">4</div>
-          <div className="border row-span-2 col-span-3 col-start-1">5</div>
         </div>
+        {/*
+        <div className="grid gap-4 absolute top-[9%] left-[3%] w-[94%] h-[82%] grid-rows-10 grid-cols-10 p-[2rem]">
+          <div className="border row-span-4 col-span-3">1</div>
+          <div className="border row-span-4 col-span-3 col-start-1 row-start-5">5</div>
+          <div className="row-span-8 col-span-4 col-start-4 relative flex items-center justify-center">
+            <FutureProjectsList />
+          </div>
+          <div className="border row-span-3 col-span-3 col-start-8">3</div>
+          <div className="border row-span-3 col-span-3 col-start-8 row-start-6">4</div>
+          <div className="row-span-2 row-start-9 col-span-10 mt-[5rem] border">
+            <div className="w-full h-full flex items-center">
+              {openFolders.map((folder: IFolder | IList, i:number) => (
+                <FutureProjectIcon
+                  key={generateId()}
+                  project={folder}
+                  i={i}
+                  handleClick={handleClick}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+        {openFolders.length > 0 && openFolders.map((folder: IFolder | IList) => (
+          <FutureProject projectName={folder.name} key={generateId()} />
+        ))}
+          */}
       </div>
     </div>
   );
