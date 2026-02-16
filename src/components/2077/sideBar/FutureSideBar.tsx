@@ -1,9 +1,10 @@
 'use client';
 
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { IFolder, IList } from "@/utils/types";
 import FutureProjectIcon from '../FutureProjectIcon';
 import Image from 'next/image';
+import { DisplayContext } from "../../../contexts/DisplayContext";
 
 interface IFutureSideBarProps {
   icons: IFolder[] | IList[] | string[];
@@ -13,9 +14,34 @@ interface IFutureSideBarProps {
 }
 
 export default function FutureSideBar({ icons, handleClick, selectedImage, setSelectedImage }: IFutureSideBarProps) {
+    const { updateOpenFolders, updatePastWindowActive } = useContext(DisplayContext);
+
+    const handleCloseAll = () => {
+        updateOpenFolders([]);
+        updatePastWindowActive('');
+    };
+
     return (
         <div className={`w-full h-full ${!selectedImage ? 'flex items-center justify-center' : ''}`}>
             <div className={`flex items-center justify-center ${!selectedImage ? 'relative w-full mb-[2rem] lg:mb-0 lg:w-[70%] h-full mt-[2rem] mx-auto' : 'w-full h-full'}`}>
+                {!selectedImage && icons.length > 0 && (
+                    <button 
+                        onClick={handleCloseAll}
+                        className="group font-bold w-[2rem] h-[2.5rem] flex items-center justify-center absolute -top-7 left-[50%] -translate-x-1/2 z-[20] shadow-[0_0_20px_cyan-400] bg-cyan-400 p-[.1rem] uppercase hover:bg-[#CF5CCD] hover:scale-110 transition-all duration-300 cursor-pointer"
+                        style={{
+                            clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"
+                        }}
+                    >
+                        <div 
+                            className="w-full h-full bg-slate-800 flex items-center justify-center text-cyan-400 hover:text-[#CF5CCD]"
+                            style={{
+                                clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"
+                            }}
+                        >
+                            X
+                        </div>
+                    </button>
+                )}
                 <svg 
                     className="absolute inset-0 pointer-events-none z-[10]" 
                     width="100%" 
