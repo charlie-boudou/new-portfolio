@@ -21,7 +21,7 @@ export default function FutureSettingIcon({ title, icon, handleClick }: IFutureS
                 </div>
                 </div>
             </div>
-            <p className="text-[.6rem]">{title.toUpperCase()}</p>
+            <p className="text-[.6rem] text-white">{title.toUpperCase()}</p>
         </div>
     );
 }
