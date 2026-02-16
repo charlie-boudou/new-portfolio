@@ -102,7 +102,7 @@ export default function FutureWindowLayout({
     const contentClasses = useMemo(() => {
         const base = "relative z-[30] transition-all duration-500 overflow-auto bg-slate-800";
         if (isMaximized || isMobile) {
-            return `${base} ${isMaximized ? (projectName === "Images" ? 'w-full h-full' : 'w-full h-full lg:w-[70%] lg:h-[90%] lg:border-2 lg:border-cyan-400 lg:shadow-[0_0_20px_rgba(34,211,238,0.5)]') : 'w-full h-full'}`;
+            return `${base} ${isMaximized ? (projectName === "Images" || projectName === "Breach Protocol"  ? 'w-full h-full' : 'w-full h-full lg:w-[70%] lg:h-[90%] lg:border-2 lg:border-cyan-400 lg:shadow-[0_0_20px_rgba(34,211,238,0.5)]') : 'w-full h-full'}`;
         }
         return `${base} w-full h-full`;
     }, [isMaximized, isMobile, projectName]);

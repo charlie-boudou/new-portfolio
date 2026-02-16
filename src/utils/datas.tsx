@@ -40,6 +40,7 @@ import FutureContact from "@/components/2077/settings/FutureContact";
 import FutureImageViewer from "@/components/2077/media/FutureImageViewer";
 import FutureLanguage from "@/components/2077/settings/futureLanguage/FutureLanguage";
 import FutureAboutMe from "@/components/2077/aboutMe/FutureAboutMe";
+import BreachProtocol from "../components/2077/media/BreachProtocol";
 
 export const folders= (t: TFunction): IFolder[] => [
     {
@@ -191,8 +192,14 @@ export const folders= (t: TFunction): IFolder[] => [
         past: <Winmine1 className="w-[2rem] h-[2rem]"/>,
         future: <Image src={game} alt="images" width={80} height={64} className="w-[2rem] h-[2rem]" />
       },
-      name: t('minesweeper'),
-      component: <Minesweeper />,
+      name: {
+        past: t('minesweeper'),
+        future: "Breach Protocol"
+      },
+      component: {
+        past: <Minesweeper />,
+        future: <BreachProtocol />
+      },
       windowSize: 'min-w-fit m-h-fit'
     },
     {

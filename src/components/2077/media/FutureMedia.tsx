@@ -18,7 +18,7 @@ export default function FutureMedia() {
     );
     
     const gameFolder = foldersData.find((folder: IFolder)=> 
-        getValue(folder.name, true) === getValue(t('minesweeper'), true)
+        getValue(folder.name, true) === getValue("Breach Protocol", true)
     );
 
     return (
