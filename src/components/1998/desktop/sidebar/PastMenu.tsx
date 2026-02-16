@@ -1,7 +1,7 @@
 'use client';
 
 import { folders } from "@/utils/datas";
-import { IFolder, IList, IOpenableItem } from "@/utils/types";
+import { IFolder } from "@/utils/types";
 import arrow from "@/assets/arrow.svg";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,17 @@ export default function PastMenu() {
   const { openWindow, updateIsPastMenuActive } = useContext(DisplayContext);
 
   const [activeMenu, setActiveMenu] = useState<string>("");
+
+  const handleClick = (folder: IFolder, folderName: string, isActive: boolean) => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
+    if (folder.list && !isMobile) {
+      setActiveMenu(isActive ? "" : folderName);
+    } else {
+      openWindow(folder, false);
+      updateIsPastMenuActive(false);
+    }
+  }
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -82,7 +93,7 @@ export default function PastMenu() {
                 `}
                 onMouseEnter={() => setActiveMenu(folderName)}
                 onMouseLeave={() => setActiveMenu("")}
-                onClick={() => openWindow(folder, false)}
+                onClick={() => handleClick(folder, folderName, false)}
               >
                 <div className="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
                   {folderIcon}

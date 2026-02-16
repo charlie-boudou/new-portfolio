@@ -22,6 +22,8 @@ export default function ShutDownMenu() {
         }
 
         closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, true);
+        updateOpenFolders([]);
+        updatePastWindowActive('');
         
         setTimeout(() => {
             router.push(path);
