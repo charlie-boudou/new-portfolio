@@ -27,6 +27,7 @@ export default function FutureHome() {
   useEffect(() => {
     const playStartupSound = async () => {
       if (audioRef.current) {
+        audioRef.current.volume = 0.3;
         audioRef.current.load();
         try {
           await audioRef.current.play();

@@ -24,6 +24,7 @@ export default function ShutDownMenu() {
 
         if (audioRef.current) {
             try {
+                audioRef.current.volume = 0.3;
                 audioRef.current.currentTime = 0;
                 await audioRef.current.play();
                 audioRef.current.onended = () => {
