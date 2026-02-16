@@ -31,7 +31,7 @@ export default function FutureLanguage() {
       <div className="flex flex-col space-y-[.5rem] lg:flex-row items-center justify-around w-full flex-1 min-h-0 gap-2">
         <div className="w-full lg:w-[30%] order-2 lg:order-1">
             <LanguageCard 
-                item={(languages?.infos?.[0]?.content?.[1] as ILanguage) || null} 
+                item={(languages?.infos?.[0]?.content?.[0] as ILanguage) || null} 
                 index={1} 
             />
         </div>

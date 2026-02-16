@@ -1,8 +1,11 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { DisplayContext } from "../../../contexts/DisplayContext";
 
 export default function FutureTime() {
+    const { selectedLanguage } = useContext(DisplayContext);
+    
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
 
@@ -10,7 +13,14 @@ export default function FutureTime() {
         const updateTime = () => {
         const now = new Date();
         
-        const datePart = now.toLocaleDateString("en-US", {
+        const datePart = selectedLanguage === "en" 
+        ? now.toLocaleDateString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        }) 
+        : now.toLocaleDateString("fr-FR", {
             weekday: "short",
             month: "short",
             day: "numeric",
