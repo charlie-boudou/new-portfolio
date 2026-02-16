@@ -240,8 +240,8 @@ export default function FutureWindowLayout({
             <div
                 className={`absolute flex space-x-[1rem] transition-all duration-500 ${
                     (isMaximized || isMobile)
-                        ? `${!isMobile ? 'top-5' : 'top-7'} lg:top-[1.5rem] left-1/2 -translate-x-1/2 z-[1000]`
-                        : "top-[4%] right-[3%] z-[400]"
+                        ? `${!isMobile ? 'top-5' : 'top-6'} left-1/2 -translate-x-1/2 z-[1000]`
+                        : "top-2 right-[3%] z-[400]"
                 }`}
             >
                 {minimize && (
