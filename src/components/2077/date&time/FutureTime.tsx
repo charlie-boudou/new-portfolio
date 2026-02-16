@@ -41,7 +41,7 @@ export default function FutureTime() {
         updateTime();
         const timer = setInterval(updateTime, 1000);
         return () => clearInterval(timer); 
-    }, []);
+    }, [selectedLanguage]);
 
     return (
         <div className="bg-slate-800 border border-[#CF5CCD] rounded-[.2rem] text-cyan-400 w-full h-full flex flex-col space-y-[.8rem] items-center justify-center text-[1.5rem] py-[.5rem]">
