@@ -1,149 +1,126 @@
 'use client';
 
 import PastSideBar from "@/components/1998/desktop/sidebar/PastSideBar";
-import { useContext, useEffect, useRef } from "react";
-import PastWindowLayout from "@/components/1998/desktop/fileWindow/PastWindowLayout";
+import { JSX, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import PastWindowLayout from "@/components/1998/desktop/window/PastWindowLayout";
 import { DisplayContext } from "../../contexts/DisplayContext";
-import { IFolder, IList } from "@/utils/types";
+import { IFolder, IList  } from "@/utils/types";
 import PastOfficeIcon from "@/components/1998/desktop/PastOfficeIcon";
 import { folders } from "@/utils/datas";
 import { useTranslation } from "react-i18next";
+import { getValue } from '@/utils/functions';
 
 export default function PastHome() {
   const { t } = useTranslation();
-  const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive, hiddenFolders, updateHiddenFolders, updateSelectedIconOffice } = useContext(DisplayContext);
-  const generateId = () => crypto.randomUUID();
+  const { openWindow, openFolders, pastWindowActive } = useContext(DisplayContext);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const isResize = (name: string) => {
-    return name !== t('settings') && name !== t('shut') && name !== t('contact') && name !== t('minesweeper');
-  }
+  const [isMounted, setIsMounted] = useState(false);
 
-  const ICON_WIDTH = 80;
-  const ICON_HEIGHT = 90;
-  const START_X = 32;
-  const START_Y = 32;
-  const ICONS_PER_COLUMN = 7;
+  const allFolders = useMemo(() => folders(t), [t]);
+  
+  const desktopIcons = useMemo(() => 
+    allFolders.filter((folder: IFolder) => (getValue(folder.name, false) as string) !== t('shut')),
+    [allFolders, t]
+  );
 
- const getCenterPos = (index: number) => {
-  const screenW = typeof window !== 'undefined' ? window.innerWidth : 1200;
-  const screenH = typeof window !== 'undefined' ? window.innerHeight : 800;
-
-  const winW = 600; 
-  const winH = 400;
-
-  return {
-    x: (screenW / 2) - (winW / 2) + (index * 2), 
-    y: (screenH / 2) - (winH / 2) + (index * 2),
-  };
-};
-
-  const getInitialPos = (folder: IFolder, index: number) => {
-    const isMobile = window.innerWidth < 768;
-    
-    if (isMobile) {
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight;
-      const winW = screenW * 0.9; 
-      const winH = screenH * 0.6; 
-
-      return {
-        x: (screenW - winW) / 2,
-        y: (screenH * 0.1), 
-      };
-    }
-
-    const isLarge = folder.windowSize?.includes('w-[80vw]');
-    if (isLarge) {
-      return { x: 20 + (index * 10), y: 20 + (index * 10) };
-    }
-    return { x: 80 + (index * 20), y: 50 + (index * 20) };
+  const LAYOUT = {
+    ICON_WIDTH: 80,
+    ICON_HEIGHT: 90,
+    START_X: 32,
+    START_Y: 32,
+    ICONS_PER_COLUMN: 7
   };
 
-  const handleDoubleClick = (folder: IFolder) => {
-    const isAlreadyOpen = openFolders.some(el => el.name === folder.name);
-    const isHidden = hiddenFolders.includes(folder.name);
+  const canResize = (name: string) => ![t('settings'), t('shut'), t('contact'), t('minesweeper')].includes(name);
 
-    if (isHidden) {
-        const newHiddenList = hiddenFolders.filter(name => name !== folder.name);
-        updateHiddenFolders(newHiddenList);
+  const getCenterPos = useCallback((index: number) => {
+    const screenW = isMounted ? window.innerWidth : 1200;
+    const screenH = isMounted ? window.innerHeight : 800;
+    const winW = 600; 
+    const winH = 400;
+
+    return {
+      x: (screenW / 2) - (winW / 2) + (index * 2), 
+      y: (screenH / 2) - (winH / 2) + (index * 2),
+    };
+  }, [isMounted]);
+
+  const getInitialPos = useCallback((folder: IFolder, index: number) => {
+    if (!isMounted) return { x: 80, y: 50 };
+
+    if (window.innerWidth < 768) {
+      return { x: window.innerWidth * 0.05, y: window.innerHeight * 0.1 };
     }
 
-    if (!isAlreadyOpen) {
-        updateOpenFolders(prev => [...prev, folder]);
-        
-        const arr = hiddenFolders.filter(el => el !== folder.name);
-        updateHiddenFolders(arr);
-    }
-    
-    updatePastWindowActive(folder.name);
-    updateSelectedIconOffice('');
-  };
+    const isLarge = folder.windowSize?.includes('w-[80%]');
+    const offset = index * 20;
+    return isLarge 
+      ? { x: 20 + (index * 10), y: 20 + (index * 10) }
+      : { x: 80 + offset, y: 50 + offset };
+  }, [isMounted]);
 
   useEffect(() => {
+    setIsMounted(true);
     const playStartupSound = async () => {
       if (audioRef.current) {
         try {
           await audioRef.current.play();
-        } catch (err) {
-          console.log("L'auto-play a été bloqué par le navigateur. Le son jouera après la première interaction.");
+        } catch {
+          console.log("Auto-play bloqué");
         }
       }
     };
-
     playStartupSound();
   }, []);
 
   return (
-    <div className="relative past-font cursor-default w-screen h-screen max-h-screen bg-[url('/images/pastBackground.jpg')] bg-cover bg-center bg-no-repeat">
-      {folders(t)
-        .filter((folder: IFolder) => folder.name !== t('shut'))
-        .map((folder: IFolder, index: number) => {
-          const column = Math.floor(index / ICONS_PER_COLUMN);
-          const row = index % ICONS_PER_COLUMN;
+    <div className="relative past-font cursor-default w-screen h-screen overflow-hidden bg-[url('/images/pastBackground.jpg')] bg-cover bg-center">
+      {desktopIcons.map((folder: IFolder, index: number) => {
+        const name = getValue(folder.name, false) as string;
+        const column = Math.floor(index / LAYOUT.ICONS_PER_COLUMN);
+        const row = index % LAYOUT.ICONS_PER_COLUMN;
 
-          return (
-            <PastOfficeIcon
-              key={generateId()}
-              initialPos={ 
-                folder.name === t('shut') 
-                  ? getCenterPos(index) 
-                  : {
-                      x: START_X + column * ICON_WIDTH,
-                      y: START_Y + row * ICON_HEIGHT,
-                    }}
-              folder={folder}
-              absolutePosition={true}
-              draggable
-              handleDoubleClick={handleDoubleClick}
-            />
-          );
+        return (
+          <PastOfficeIcon
+            key={`icon-${name}`}
+            initialPos={{
+              x: LAYOUT.START_X + column * LAYOUT.ICON_WIDTH,
+              y: LAYOUT.START_Y + row * LAYOUT.ICON_HEIGHT,
+            }}
+            folder={folder}
+            absolutePosition
+            draggable
+            handleDoubleClick={() => openWindow(folder, false)}
+          />
+        );
       })}
+
       {pastWindowActive === t('shut') && (
         <div className="fixed inset-0 z-[90] bg-black/10" />
       )}
-      {openFolders.length > 0 && openFolders.map((folder: IFolder | IList, index: number) => {
-        const responsiveSize = `max-md:!w-[90%] max-md:!left-[5%] ${folder.windowSize ? folder.windowSize : 'w-[40%] h-[50%]'}`;
 
+      {openFolders.map((folder: IFolder | IList, index: number) => {
+        const name = getValue(folder.name, false) as string;
+        const isSpecial = name === t('shut') || name === t('settings');
+        
         return (
           <PastWindowLayout 
+            key={`window-${name}`}
             folder={folder as IFolder}
-            initialPos={ folder.name === t('shut') || folder.name === t('settings')
-              ? getCenterPos(index) 
-              : getInitialPos(folder as IFolder, index)
-            }
-            minimize={folder.name !== t('settings') && folder.name !== t('shut')}
-            resize={isResize(folder.name)}
-            key={folder.name}
-            windowSize={responsiveSize}
-            draggable={folder.name !== t('shut')}
+            initialPos={isSpecial ? getCenterPos(index) : getInitialPos(folder as IFolder, index)}
+            minimize={!isSpecial}
+            resize={canResize(name)}
+            windowSize={`max-md:!w-[90%] max-md:!left-[5%] ${folder.windowSize || 'w-[40%] h-[50%]'}`}
+            draggable={name !== t('shut')}
           >
-            {folder.component || null}
+            {folder.component ? (getValue(folder.component, false) as JSX.Element) : null}
           </PastWindowLayout>
         );
       })}
+
       <PastSideBar />
       <audio ref={audioRef} src="/sound/windows-98-startup.mp3" preload="auto" />
     </div>
-  )
+  );
 }

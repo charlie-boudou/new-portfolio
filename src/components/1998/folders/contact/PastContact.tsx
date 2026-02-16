@@ -3,33 +3,33 @@
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PastButton from '../../PastButton';
-import { closeWindow } from "@/utils/functions";
+import { closeWindow, getValue } from "@/utils/functions";
 import { DisplayContext } from '../../../../contexts/DisplayContext';
 import { IFolder, IList } from '@/utils/types';
 import Link from "next/link";
 
 export default function PastSettings() {
     const { t } = useTranslation();
-    const generateId = () => crypto.randomUUID();
     const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
 
-    const contacts = openFolders.find((folder: IFolder | IList) => folder.name === t('contact')) as IFolder | undefined;
+    const contacts = openFolders.find((folder: IFolder | IList) => getValue(folder.name, false) as string === t('contact')) as IFolder | undefined;
     const [tabActive, setTabActive] = useState<string>('GitHub');
     const activeContact = contacts?.list?.find((contact: IList) => contact.name === tabActive);
 
     const handleClick = () => {
-        closeWindow(t('contact'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
+        closeWindow(t('contact'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, false);
     };
 
     return (
         <div className='w-full h-full flex flex-col p-[.3rem]'>
             <div className='flex items-center w-full'>
                 {contacts && contacts.list && contacts.list.map((contact: IList, index: number) => {
-                    const isActive = tabActive === contact.name;
+                    const contactName = getValue(contact.name, false) as string;
+                    const isActive = tabActive === contactName;
                     return (
                         <div 
-                            key={generateId()}
-                            onClick={() => setTabActive(contact.name)}
+                            key={`contact-${contactName}`}
+                            onClick={() => setTabActive(contactName)}
                             className={`
                                 text-black border-t-[1.5px] border-l-[1.5px] border-b-[#BCBEBC]
                                 rounded-tl-[.3rem] rounded-tr-[.1rem]
@@ -41,7 +41,7 @@ export default function PastSettings() {
                                 ${index === 0 && !isActive ? 'shadow-none' : 'shadow-[1.5px_0_0_0_#424242]'}
                             `}
                         >
-                            {contact.name}
+                            {contactName}
                         </div>
                     );
                 })}
@@ -68,8 +68,9 @@ export default function PastSettings() {
                         <>
                             {activeContact.icon}
                             <Link
-                                key={generateId()}
+                                key={`link-${activeContact}`}
                                 href={activeContact.href}
+                                target="_blank"
                                 className='underline decoration-solid text-[#030171]'
                             >
                                 {activeContact.name === 'GMail' ? `${activeContact.href.replace('mailto:', '')}` : `${activeContact.href}`}

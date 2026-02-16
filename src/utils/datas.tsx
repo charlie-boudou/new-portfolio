@@ -24,14 +24,35 @@ import PastProject from "@/components/1998/folders/projects/PastProject";
 import PastAboutMe from "@/components/1998/folders/aboutMe/PastAboutMe";
 import PastContact from "@/components/1998/folders/contact/PastContact";
 import Minesweeper from "../components/1998/folders/minesweeper/Minesweeper";
-import PastImageViewer from "../components/1998/folders/imageViewer/PastImageViewer";
+import PastImageViewer from "@/components/1998/folders/imageViewer/PastImageViewer";
+import world from "@/assets/world.svg";
+import chip from "@/assets/chip.svg";
+import contact from "@/assets/contact.svg";
+import file from "@/assets/file.svg";
+import turnOff from "@/assets/turnOff.svg";
+import image from "@/assets/image.svg";
+import game from "@/assets/game.svg";
+import avatar from "@/assets/avatar.svg";
+import FutureProject from "@/components/2077/projects/FutureProject";
+import FutureShutDown from "@/components/2077/settings/FutureShutDown";
+import FutureSystemCore from "@/components/2077/settings/FutureSystemCore";
+import FutureContact from "@/components/2077/settings/FutureContact";
+import FutureImageViewer from "@/components/2077/media/FutureImageViewer";
+import FutureLanguage from "@/components/2077/settings/futureLanguage/FutureLanguage";
+import FutureAboutMe from "@/components/2077/aboutMe/FutureAboutMe";
 
 export const folders= (t: TFunction): IFolder[] => [
     {
-      icon: <Wordpad className="w-[2rem] h-[2rem]"/>,
+      icon: {
+        past: <Wordpad className="w-[2rem] h-[2rem]"/>,
+        future: <Image src={avatar} alt={t('about')} width={80} height={64} className="w-[2.5rem] h-[2.5rem]" />,
+      },
       name: t('about'),
-      component: <PastAboutMe />,
-      windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+      component: {
+        past: <PastAboutMe />,
+        future: <FutureAboutMe />
+      },
+      windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
     },
     {
       icon: <FolderFile className="w-[2.5rem] h-[2.5rem]"/>,
@@ -39,54 +60,102 @@ export const folders= (t: TFunction): IFolder[] => [
       component: <PastProjectsList />,
       list: [
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'OPX',
-          component: <PastProject projectName="OPX" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="OPX" />,
+            future: <FutureProject projectName="OPX" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'Drapo Solution',
-          component: <PastProject projectName="Drapo Solution" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="Drapo Solution" />,
+            future: <FutureProject projectName="Drapo Solution" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'Villa Calm',
-          component: <PastProject projectName="Villa Calm" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="Villa Calm" />,
+            future: <FutureProject projectName="Villa Calm" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'Tikok Production',
-          component: <PastProject projectName="Tikok Production" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="Tikok Production" />,
+            future: <FutureProject projectName="Tikok Production" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'Ma plus belle toile',
-          component: <PastProject projectName="Ma plus belle toile" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="Ma plus belle toile" />,
+            future: <FutureProject projectName="Ma plus belle toile" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'Memories',
-          component: <PastProject projectName="Memories" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="Memories" />,
+            future: <FutureProject projectName="Memories" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
         {
-          icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+          icon: {
+            past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+            future: <Image src={file} alt="file" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+          },
           name: 'Le Comptoir des Arcs',
-          component: <PastProject projectName="Le Comptoir des Arcs" />,
-          windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+          component: {
+            past: <PastProject projectName="Le Comptoir des Arcs" />,
+            future: <FutureProject projectName="Le Comptoir des Arcs" />
+          },
+          windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
         },
       ]
     },
     {
-      icon: <Mail className="w-[2rem] h-[2rem]"/>,
-      name: t('contact'),
-      component: <PastContact />,
-      windowSize: 'w-[40vw] h-[40vh] xl:w-[30vw] xl:h-[30vh]',
+      icon: {
+        past: <Mail className="w-[2rem] h-[2rem]"/>,
+        future: <Image src={contact} alt="contact" width={80} height={64} className="w-[2.5rem] h-[2.5rem]" />,
+      },
+      name: { past: t('contact'), future: t('contactFuture')},
+      component: {
+        past: <PastContact />,
+        future: <FutureContact />
+      },
+      windowSize: 'w-[40%] h-[40%] xl:w-[30%] xl:h-[30%]',
       list: [
         {
           icon: <Image src={github} alt="GitHub" className="w-[2rem] h-[2rem] group-hover:invert"/>,
@@ -106,35 +175,63 @@ export const folders= (t: TFunction): IFolder[] => [
       ]
     },
     {
-      icon: <Wangimg128 className="w-[2.5rem] h-[2.5rem]"/>,
+      icon: {
+        past: <Wangimg128 className="w-[2.5rem] h-[2.5rem]"/>,
+        future: <Image src={image} alt="images" width={80} height={64} className="w-[2rem] h-[2rem]" />
+      },
       name: "Images",
-      component: <PastImageViewer />,
-      windowSize: 'w-[80vw] max-w-[1000px] h-[70vh]'
+      component: {
+        past: <PastImageViewer />,
+        future: <FutureImageViewer />
+      },
+      windowSize: 'w-[80%] max-w-[1000px] h-[70%]'
     },
     {
-      icon: <Winmine1 className="w-[2rem] h-[2rem]"/>,
+      icon: {
+        past: <Winmine1 className="w-[2rem] h-[2rem]"/>,
+        future: <Image src={game} alt="images" width={80} height={64} className="w-[2rem] h-[2rem]" />
+      },
       name: t('minesweeper'),
       component: <Minesweeper />,
       windowSize: 'min-w-fit m-h-fit'
     },
     {
-      icon: <Settings className="w-[2.5rem] h-[2.5rem]"/>,
+      icon: {
+        past: <Settings className="w-[2.5rem] h-[2.5rem]"/>,
+        future: <Image src={chip} alt="system core" width={80} height={64} className="w-[2.5rem] h-[2.5rem]" />
+      }, 
       name: t('settings'),
-      component: <PastSettings />,
-      windowSize: 'w-full md:w-[40vw] h-[50vh]'
+      component: {
+        past: <PastSettings />,
+        future: <FutureSystemCore />
+      },
+      windowSize: 'w-full md:w-[40%] h-[50%]'
     },
     {
-      icon: <Computer3 className="w-[2.5rem] h-[2.5rem]"/>,
-      name: t('shut'),
-      component: <PastShutDown />,
-      windowSize: 'w-full md:w-[30vw] h-[30vh]'
+      icon: {
+        past: <Computer3 className="w-[2.5rem] h-[2.5rem]"/>,
+        future: <Image src={turnOff} alt="turn off" width={80} height={64} className="w-[2.5rem] h-[2.5rem]" />,
+      },
+      name: {
+        past: t('shut'),
+        future: t('shutFuture')
+      },
+      component: {
+        past: <PastShutDown />,
+        future: <FutureShutDown />
+      },
+      windowSize: 'w-full md:w-[30%] h-[30%]'
     }
 ];
 
 export const settings= (t: TFunction): ISetting[] => [
   {
-    icon: <Image src="/images/generalSetting1.png" alt="general" width={80} height={64} className="w-[6rem] md:w-[10rem] h-[5.5rem] md:h-[9.5rem]" />,
-    name: t('general'),
+    icon: {
+      past: <Image src="/images/generalSetting1.png" alt="general" width={80} height={64} className="w-[6rem] md:w-[10rem] h-[5.5rem] md:h-[9.5rem]" />,
+      future: <Image src={chip} alt="system core" width={80} height={64} className="w-[2.5rem] h-[2.5rem]" />
+    },
+    name: {past: t('general'), future: t('systemcore')},
+    component: <FutureSystemCore />,
     infos: [
       {
         title: t('stacks'),
@@ -153,7 +250,9 @@ export const settings= (t: TFunction): ISetting[] => [
     ]
   },
   {
+    icon: <Image src={world} alt={t('language')} width={80} height={64} className="w-[2.5rem] h-[2.5rem]" />,
     name: t('language'),
+    component: <FutureLanguage />,
     infos: [
       {
         title: t('installed'),
@@ -185,8 +284,8 @@ export const shutDown: (t: TFunction) => IShutDown = (t) => ({
 });
 
 export const aboutMe: (t: TFunction) => IAboutMe = (t) => ({
-  icon: "/images/AboutMe.png",
-  title: t('aboutMe'),
+  icon: <Image src="/images/AboutMe.png" alt={t('about')} width={200} height={200} className="w-[50vw] md:h-[20vh]" />,
+  title: t('about'),
   description: [
     {
       title: t('about'),
@@ -279,7 +378,10 @@ export const aboutMe: (t: TFunction) => IAboutMe = (t) => ({
 
 export const projects: (t: TFunction) => IProject[] = (t) => ([
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'OPX',
     description: t('opx'),
     title: "/images/OPXTitle.png",
@@ -288,7 +390,10 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     link: 'https://www.opx.co/'
   },
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'Drapo Solution',
     description: t('drapo'),
     title: "/images/drapoTitle.png",
@@ -297,7 +402,10 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     link: 'https://www.drapo.com/'
   },
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'Villa Calm',
     description: t('villacalm'),
     title: "/images/villacalmTitle.png",
@@ -306,7 +414,10 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     link: 'https://villa-calm.vercel.app/'
   },
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'Tikok Production',
     description: t('tikok'),
     title: "/images/tikokTitle.png",
@@ -315,7 +426,10 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     link: 'https://tikokproduction.com'
   },
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'Ma plus belle toile',
     description: t('maplusbelletoile'),
     title: "/images/maplusbelletoileTitle.png",
@@ -324,7 +438,10 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     link: 'https://www.maplusbelletoile.com'
   },
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'Memories',
     description: t('memories'),
     title: "/images/memoriesTitle.png",
@@ -333,7 +450,10 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
     link: 'https://github.com/charlie-boudou/memories-frontend'
   },
   {
-    icon: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+    icon: {
+      past: <FolderOpen className="w-[2rem] h-[2rem]"/>,
+      future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
+    },
     name: 'Le Comptoir des Arcs',
     description: t('opx'),
     title: "/images/lecomptoirdesarcsTitle.png",

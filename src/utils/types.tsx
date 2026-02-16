@@ -1,9 +1,11 @@
 import { JSX } from "react";
 
+export type IDualValue<T> = T | { past: T; future: T };
+
 export type IList = {
-    icon: JSX.Element;
-    name: string;
-    component?: JSX.Element;
+    icon: IDualValue<JSX.Element> | JSX.Element;
+    name: IDualValue<string> | string;
+    component?: IDualValue<JSX.Element> | JSX.Element;
     href?: string;
     link?: string;
     windowSize?: string
@@ -22,16 +24,17 @@ export type IInfos = {
 }
 
 export type IFolder = {
-    name: string;
-    icon: JSX.Element;
-    component: JSX.Element;
+    name: IDualValue<string> | string;
+    icon: IDualValue<JSX.Element> | JSX.Element;
+    component: IDualValue<JSX.Element> | JSX.Element;
     list?: Array<IList>;
     windowSize?: string;
 };
 
 export type ISetting = {
-    name: string;
-    icon?: JSX.Element;
+    name: IDualValue<string> | string;
+    icon: IDualValue<JSX.Element> | JSX.Element;
+    component: JSX.Element;
     infos:Array<IInfos>;
 }
 
@@ -52,7 +55,7 @@ export type ISkills = {
 }
 
 export type IAboutMe = {
-    icon: string;
+    icon: JSX.Element;
     title: string;
     description: Array<IDescription>;
     skills: Array<ISkills>;
@@ -60,7 +63,7 @@ export type IAboutMe = {
 }
 
 export type IProject = {
-    icon: JSX.Element;
+    icon: IDualValue<JSX.Element>;
     description: string;
     name: string;
     title: string;
@@ -76,3 +79,5 @@ export type ICell = {
   neighborCount: number;
   isQuestion?: boolean;
 };
+
+export type IOpenableItem = IList | IFolder;

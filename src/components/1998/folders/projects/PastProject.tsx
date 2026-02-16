@@ -14,7 +14,6 @@ interface IPastProjectProps {
 }
 export default function PastProject({projectName}: IPastProjectProps) {
     const { t } = useTranslation();
-    const generateId = () => crypto.randomUUID();
     const scrollRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
@@ -34,7 +33,7 @@ export default function PastProject({projectName}: IPastProjectProps) {
                             <div className='text-justify md:w-[50%] w-full indent-8'>{project?.description}</div>
                             <div className='md:w-[50%] w-full flex items-center justify-center'>
                                 {project.pictures && (
-                                    <Image src={project.pictures[0]} alt="picture" width={500} height={500} className="w-full h-[20rem]" />
+                                    <Image src={project.pictures[0]} alt="picture" width={500} height={500} className="w-full h-[20rem] object-cover" />
                                 )}
                             </div>
                         </div>
@@ -45,7 +44,7 @@ export default function PastProject({projectName}: IPastProjectProps) {
                                         {project.pictures.map((picture: string, index: number) => {
                                             if (index === 0) { return; }
                                             return (
-                                                <Image key={generateId()} src={picture} alt="picture" width={500} height={500} className="w-[15rem] h-[10rem]" />
+                                                <Image key={`image-${index}`} src={picture} alt="picture" width={500} height={500} className="w-[15rem] h-[10rem] object-cover" />
                                             );
                                         })}
                                     </>
@@ -56,8 +55,8 @@ export default function PastProject({projectName}: IPastProjectProps) {
                                 <div className='grid md:grid-cols-2 gap-4'>
                                     {project?.stacks && (
                                         <>
-                                            {project.stacks.map((stack: string) => (
-                                                <PastButton key={generateId()} title={stack} />
+                                            {project.stacks.map((stack: string, index: number) => (
+                                                <PastButton key={`stack-${index}`} title={stack} />
                                             ))}
                                         </>
                                     )}

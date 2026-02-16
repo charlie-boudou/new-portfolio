@@ -12,7 +12,6 @@ import { IFolder } from '@/utils/types';
 export default function PastShutDown() {
     const { t } = useTranslation();
     const router = useRouter();
-    const generateId = () => crypto.randomUUID();
     const audioRef = useRef<HTMLAudioElement>(null);
     
     const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
@@ -47,7 +46,7 @@ export default function PastShutDown() {
             }
             return;
         }
-        closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
+        closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, false);
     };
 
     const performFallbackRedirect = (path: string) => {
@@ -59,17 +58,17 @@ export default function PastShutDown() {
     };
 
   return (
-    <div className="bg-[#BCBEBC] px-[1rem] py-[1.5rem] w-full h-full text-black select-none">     
-        <div className="flex space-x-[1.2rem] items-start">
-            <div>
+    <div className="bg-[#BCBEBC] p-[.5rem] md:p-[1rem] w-full h-full text-black select-none flex flex-col justify-between overflow-hidden">     
+        <div className="flex space-x-[1rem] items-start shrink-0">
+            <div className="block">
                 {shutDown(t).icon}
             </div>
-            <div className="flex flex-col flex-1">
-                <p className="mb-[1rem]">{shutDown(t).title}</p>
-                <div className="flex flex-col space-y-2">
+            <div className="flex flex-col flex-1 min-w-0">
+                <p className="mb-[1rem] text-sm md:text-base leading-tight">{shutDown(t).title}</p>
+                <div className="flex flex-col space-y-1 md:space-y-2">
                     {shutDown(t).actions.map((action: string) => (
                         <label 
-                            key={generateId()} 
+                            key={`shut-${action}`} 
                             className="flex items-center group"
                             onClick={() => setSelectedAction(action)}
                         >
@@ -82,7 +81,7 @@ export default function PastShutDown() {
                                     <div className="w-[.4rem] h-[.4rem] bg-black rounded-full m-auto" />
                                 )}
                             </div>
-                            <div className={selectedAction === action ? "border border-dotted border-black px-[.3px] -mx-[.3px]" : "px-[.3px]"}>
+                            <div className={`${selectedAction === action ? "border border-dotted border-black px-[.3px] -mx-[.3px]" : "px-[.3px]"} text-sm md:text-base`}>
                                 {action}
                             </div>
                         </label>
@@ -90,9 +89,9 @@ export default function PastShutDown() {
                 </div>
             </div>
         </div>
-        <div className='w-full flex items-center justify-end space-x-[.5rem]' style={{ marginTop: "1rem"}}>
-            <PastButton main title="OK" handleClick={() => handleClick('ok')} />
-            <PastButton title="Cancel" handleClick={() => handleClick('cancel')} />
+        <div className='w-full flex items-center justify-end space-x-2 mt-4 shrink-0'>
+          <PastButton main title="OK" handleClick={() => handleClick('ok')} />
+          <PastButton title="Cancel" handleClick={() => handleClick('cancel')} />
         </div>
         <audio ref={audioRef} src="/sound/windows-98-shutdown.mp3" preload="auto" />
     </div>

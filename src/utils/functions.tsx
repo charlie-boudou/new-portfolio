@@ -1,4 +1,5 @@
-import { ICell, IFolder } from "./types";
+import { JSX } from "react";
+import { ICell, IDualValue, IFolder } from "./types";
 
 const TASKBAR_HEIGHT = 50;
 const SNAP = 15;
@@ -86,8 +87,9 @@ export const closeWindow = (
   openFolders: IFolder[],
   setOpenFolders: (v: IFolder[]) => void,
   setActiveWindow: (v: string) => void,
+  isFuture: boolean
 ) => {
-  setOpenFolders(openFolders.filter(folder => folder.name !== name));
+  setOpenFolders(openFolders.filter(folder => getValue(folder.name, isFuture) as string !== name));
   if (activeWindow === name) setActiveWindow("");
 };
 
@@ -217,4 +219,16 @@ export const createNewGrid = (rows: number, cols: number, minesCount: number): I
     }
     
     return newGrid;
+};
+
+/* ==> GET PAST OR FUTURE VALUE <== */
+export const getValue = (val: IDualValue<string> | IDualValue<JSX.Element>, isFuture: boolean) => {
+    if (!val) return null;
+    if (typeof val === 'object' && 'future' in val && isFuture) {
+      return val.future;
+    }
+    if (typeof val === 'object' && 'past' in val && !isFuture) {
+      return val.past;
+    }
+    return val;
 };

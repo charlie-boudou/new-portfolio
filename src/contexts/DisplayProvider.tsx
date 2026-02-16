@@ -1,21 +1,38 @@
 'use client';
 
 import { DisplayContext } from './DisplayContext';
-import { IFolder, IList } from '@/utils/types';
 import { useState, useEffect, useCallback, Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
+import { IOpenableItem, IFolder, IList } from '@/utils/types';
+import { getValue } from '@/utils/functions';
 
 export function DisplayProvider({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
 
   const [mounted, setMounted] = useState(false);
-  const [isPast, setIsPast] = useState<boolean>(true);
   const [isPastMenuActive, setIsPastMenuActive] = useState<boolean>(false);
-  const [openFolders, setOpenFolders] = useState<IFolder[] | IList[]>([]);
+  const [openFolders, setOpenFolders] = useState<IOpenableItem[]>([]);
   const [pastWindowActive, setPastWindowActive] = useState<string>('');
   const [hiddenFolders, setHiddenFolders] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const [selectedIconOffice, setSelectedIconOffice] = useState<string>('');
+
+  const openWindow = useCallback((item: IFolder | IList, isFuture: boolean) => {
+    const name = getValue(item.name, isFuture) as string;
+
+    const isAlreadyOpen = openFolders.some(
+      (folder) => getValue(folder.name, isFuture) === name
+    );
+
+    setHiddenFolders((prev) => prev.filter((hidden) => hidden !== name));
+    
+    if (!isAlreadyOpen) {
+      setOpenFolders((prev) => [...prev, item]);
+    }
+
+    setPastWindowActive(name);
+    setSelectedIconOffice('');
+  }, [openFolders]);
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 0);
@@ -36,8 +53,6 @@ export function DisplayProvider({ children }: { children: React.ReactNode }) {
   return (
     <DisplayContext.Provider
       value={{
-        isPast,
-        updateIsPast: setIsPast,
         isPastMenuActive,
         updateIsPastMenuActive: setIsPastMenuActive,
         openFolders,
@@ -49,7 +64,8 @@ export function DisplayProvider({ children }: { children: React.ReactNode }) {
         selectedLanguage, 
         updateSelectedLanguage: changeLanguage,
         selectedIconOffice,
-        updateSelectedIconOffice: setSelectedIconOffice
+        updateSelectedIconOffice: setSelectedIconOffice,
+        openWindow
       }}
     >
       {children}

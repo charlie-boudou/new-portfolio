@@ -7,35 +7,35 @@ import PastGeneralSetting from './PastGeneralSetting';
 import PastLanguageSetting from './PastLanguageSetting';
 import { ISetting, IFolder } from '@/utils/types';
 import PastButton from '../../PastButton';
-import { closeWindow } from "@/utils/functions";
+import { closeWindow, getValue } from "@/utils/functions";
 import { DisplayContext } from '../../../../contexts/DisplayContext';
 
 export default function PastSettings() {
     const { t, i18n } = useTranslation();
-    const generateId = () => crypto.randomUUID();
     const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive, selectedLanguage, updateSelectedLanguage } = useContext(DisplayContext);
 
     const [selected, setSelected] = useState(selectedLanguage);
     const [tabActive, setTabActive] = useState<string>(t('general'));
-    const activeSetting = settings(t).find((setting: ISetting) => setting.name === tabActive) as ISetting;
+    const activeSetting = settings(t).find((setting: ISetting) => getValue(setting.name, false) as string === tabActive) as ISetting;
 
     const handleClick = (title: string) => {
         if(title === 'ok') {
             updateSelectedLanguage(selected);
             i18n.changeLanguage(selected);
         }
-        closeWindow(t('settings'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive);
+        closeWindow(t('settings'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, false);
     };
 
     return (
-        <div className='w-full h-full flex flex-col p-[.3rem]'>
-            <div className='flex items-center w-full'>
+        <div className='w-full h-full flex flex-col p-[.3rem] overflow-hidden'>
+            <div className='flex items-center w-full flex-wrap'>
                 {settings(t).map((setting: ISetting, index: number) => {
-                    const isActive = tabActive === setting.name;
+                    const settingName = getValue(setting.name, false) as string;
+                    const isActive = tabActive === settingName;
                     return (
                         <div 
-                            key={generateId()}
-                            onClick={() => setTabActive(setting.name)}
+                            key={`setting-${settingName}`}
+                            onClick={() => setTabActive(settingName)}
                             className={`
                                 text-black border-t-[1.5px] border-l-[1.5px] border-b-[#BCBEBC]
                                 rounded-tl-[.3rem] rounded-tr-[.1rem]
@@ -47,35 +47,34 @@ export default function PastSettings() {
                                 ${index === 0 && !isActive ? 'shadow-none' : 'shadow-[1.5px_0_0_0_#424242]'}
                             `}
                         >
-                            {setting.name}
+                            {settingName}
                         </div>
                     );
                 })}
             </div>
             <div 
                 className={`
-                    flex 
+                    flex flex-col
                     w-full 
                     bg-[#BCBEBC] 
-                    shadow-[1px_1px_0_0_black]
-                    h-full
                     border-[1.5px] 
                     text-black 
-                    border-t-white 
-                    border-l-white 
-                    border-r-[#424242] 
-                    border-b-[#424242]
-                    flex-1
-                    ${activeSetting && activeSetting.name === t('general') ? 'p-[.5rem] md:p-[2rem]' : 'p-[.3rem] md:p-[1rem]'}
+                    border-t-white border-l-white 
+                    border-r-[#424242] border-b-[#424242]
+                    flex-1 min-h-0
+                    overflow-auto
+                    ${activeSetting && getValue(activeSetting.name, false) as string === t('general') 
+                        ? 'p-[1rem] md:p-[2rem]' 
+                        : 'p-[.5rem] md:p-[1rem]'}
                 `}
             >
-                {activeSetting && activeSetting.name === t('general') ? (
+                {activeSetting && getValue(activeSetting.name, false) as string === t('general') ? (
                     <PastGeneralSetting activeSetting={activeSetting}/>
                 ) : (
                     <PastLanguageSetting activeSetting={activeSetting} selected={selected} setSelected={setSelected} />
                 )}
             </div>
-            <div className='w-full flex items-center justify-end space-x-[.5rem]' style={{ marginTop: "1rem"}}>
+            <div className='w-full flex items-center justify-end space-x-2 mt-[.7rem] shrink-0'>
                 <PastButton main title="OK" handleClick={() => handleClick('ok')} />
                 <PastButton title="Cancel" handleClick={() => handleClick('cancel')} />
             </div>

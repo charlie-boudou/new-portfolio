@@ -2,8 +2,9 @@
 
 import { IFolder, IList } from "@/utils/types";
 import Link from "next/link";
-import { useContext } from "react";
+import { JSX, useContext } from "react";
 import { DisplayContext } from "../../../../contexts/DisplayContext";
+import { getValue } from "@/utils/functions";
 
 interface IPastSubMenuProps {
     folder: IFolder;
@@ -11,20 +12,8 @@ interface IPastSubMenuProps {
 }
 
 export default function PastSubMenu({ folder, activeMenu }: IPastSubMenuProps) {
-  const generateId = () => crypto.randomUUID();
-  const { hiddenFolders, updateHiddenFolders, updateSelectedIconOffice, openFolders, updateOpenFolders, updatePastWindowActive } = useContext(DisplayContext);
-
-  const handleClick = (sub: IList) => {
-      const isAlreadyOpen = openFolders.some(el => el.name === sub.name);
-      if (!isAlreadyOpen) {
-        const arr = hiddenFolders.filter(el => el !== sub.name);
-  
-        updateOpenFolders(prev => [...prev, sub]);
-        updateHiddenFolders(arr);
-      }
-      updatePastWindowActive(sub.name);
-      updateSelectedIconOffice('');
-  };
+  const { openWindow } = useContext(DisplayContext);
+  const folderName = getValue(folder.name, false) as string;
 
   return (
     <div
@@ -42,10 +31,13 @@ export default function PastSubMenu({ folder, activeMenu }: IPastSubMenuProps) {
         shadow-[1px_1px_0_0_black,-1px_-1px_0_0_white]
         z-5000
         w-fit
-        ${activeMenu === folder.name ? "block" : "hidden"}
+        ${activeMenu === folderName ? "block" : "hidden"}
       `}
     >
       {folder.list?.map((sub: IList) => {
+        const subName = getValue(sub.name, false) as string;
+        const subIcon = getValue(sub.icon, false) as JSX.Element;
+
         const commonClasses = `
           flex items-center space-x-[.5rem]
           p-[.3rem]
@@ -59,16 +51,16 @@ export default function PastSubMenu({ folder, activeMenu }: IPastSubMenuProps) {
         const content = (
           <>
             <div className="w-[2rem] h-[2rem] flex items-center justify-center">
-              {sub.icon}
+              {subIcon}
             </div>
-            <p className="pr-[2rem]">{sub.name}</p>
+            <p className="pr-[2rem]">{subName}</p>
           </>
         );
 
         if (sub.href) {
           return (
             <Link
-              key={generateId()}
+              key={`link-${subName}`}
               href={sub.href}
               className={commonClasses}
             >
@@ -79,8 +71,8 @@ export default function PastSubMenu({ folder, activeMenu }: IPastSubMenuProps) {
 
         return (
           <div
-            key={generateId()}
-            onClick={() => handleClick(sub)}
+            key={`link-${subName}`}
+            onClick={() => openWindow(sub, false)}
             className={commonClasses}
           >
             {content}

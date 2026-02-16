@@ -11,13 +11,11 @@ interface IPastLanguageSettingProps {
 }
 
 export default function LanguageSetting({activeSetting, selected, setSelected}: IPastLanguageSettingProps) {
-    const generateId = () => crypto.randomUUID();
-
   return (
     <div className='w-full bg-[#BCBEBC] text-black mt-[1rem]'>
-        {activeSetting.infos.map((info: IInfos) => (
+        {activeSetting.infos.map((info: IInfos, index: number) => (
             <div 
-                key={generateId()}
+                key={`info-${index}`}
                 className='relative border border-white shadow-[-1px_-1px_0_0_#808080] pt-[1.5rem] pb-[2rem] px-[0.6rem]'
             >
                 <p className='absolute bg-[#BCBEBC] top-[-0.75rem] left-[0.625rem] py-[.3rem]'>
@@ -26,18 +24,18 @@ export default function LanguageSetting({activeSetting, selected, setSelected}: 
 
                 <div className="flex items-center justify-between">
                     {info.subtitles && (
-                        info.subtitles.map((str: string) => (
-                            <p key={generateId()}>{`${str}:`}</p>
+                        info.subtitles.map((str: string, index: number) => (
+                            <p key={`str-${index}`}>{`${str}:`}</p>
                         ))
                     )}
                 </div>
 
                 <div className="border-2 border-l-[#424242] border-t-[#424242] border-r-white border-b-white bg-white h-[8rem] overflow-y-auto">
-                    {info.content.map((value: ILanguage | string) => { 
+                    {info.content.map((value: ILanguage | string, index: number) => { 
                         if (typeof value !== 'string') {
                             return (
                                 <div 
-                                    key={generateId()}
+                                    key={`content-${index}`}
                                     onClick={() => setSelected(value.icon.toLowerCase())}
                                     className={`
                                         flex 

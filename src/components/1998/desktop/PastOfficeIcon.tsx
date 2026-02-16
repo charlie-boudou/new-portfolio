@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef, useState, useCallback, useEffect, useContext } from "react";
+import { useRef, useState, useCallback, useEffect, useContext, JSX } from "react";
 import { startDrag, dragWindow, stopDrag, Position } from "@/utils/functions";
 import { IFolder, IList } from "@/utils/types";
 import { DisplayContext } from "../../../contexts/DisplayContext";
+import { getValue } from "@/utils/functions";
 
 interface IPastOfficeIconProps {
   initialPos?: Position;
@@ -21,8 +22,11 @@ export default function PastOfficeIcon({ initialPos, folder, absolutePosition, d
   const [pos, setPos] = useState<Position>(initialPos || { x: 0, y: 0 });
   const [dragging, setDragging] = useState<boolean>(false);
 
+  const folderName = getValue(folder.name, false) as string;
+  const folderIcon = getValue(folder.icon, false) as JSX.Element;
+
   const handleIconClick = () => {
-    updateSelectedIconOffice(folder.name);
+    updateSelectedIconOffice(folderName);
 
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
@@ -68,9 +72,11 @@ export default function PastOfficeIcon({ initialPos, folder, absolutePosition, d
       onDoubleClick={() => handleDoubleClick(folder as IFolder)}
     >
       <div className="w-full h-[3rem] flex items-center justify-center" >
-        {folder.icon}
+        {folderIcon}
       </div>
-      <p className={`text-xs text-center w-full truncate ${selectedIconOffice === folder.name ? 'border border-dotted' : ''}`}>{folder.name}</p>
+      <p className={`text-xs text-center w-full truncate ${selectedIconOffice === folderName ? 'border border-dotted' : ''}`}>
+        {folderName}
+      </p>
     </div>
   );
 }

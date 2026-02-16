@@ -2,8 +2,6 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { IFolder, IList } from '../utils/types';
 
 interface Display {
-  isPast: boolean;
-  updateIsPast: Dispatch<SetStateAction<boolean>>;
   isPastMenuActive: boolean;
   updateIsPastMenuActive: Dispatch<SetStateAction<boolean>>;
   openFolders: IFolder[] | IList[];
@@ -16,6 +14,7 @@ interface Display {
   updateSelectedLanguage: Dispatch<SetStateAction<string>>;
   selectedIconOffice: string;
   updateSelectedIconOffice: Dispatch<SetStateAction<string>>;
+  openWindow: (item: IFolder | IList, isFuture: boolean) => void;
 }
 
 export const DisplayContext = React.createContext(

@@ -1,123 +1,103 @@
 'use client';
 
 import FutureProjectsList from "@/components/2077/projects/FutureProjectsList";
-import { useContext} from "react";
+import { JSX, useContext} from "react";
 import { DisplayContext } from "../../contexts/DisplayContext";
-import { IFolder, IList } from "../../utils/types";
-import FutureProject from "../../components/2077/projects/FutureProject";
-import FutureProjectIcon from '../../components/2077/projects/FutureProjectIcon';
-import { useRouter } from 'next/navigation';
-
+import { IFolder, IList} from "@/utils/types";
+import FutureSetting from "@/components/2077/settings/FutureSettings";
+import FutureSideBar from "@/components/2077/sideBar/FutureSideBar";
+import FutureWindowLayout from "@/components/2077/window/FutureWindowLayout";
+import FutureTime from "@/components/2077/date&time/FutureTime";
+import FutureMedia from "@/components/2077/media/FutureMedia";
+import { getValue } from "@/utils/functions";
+import { useTranslation } from "react-i18next";
+import FutureAboutMeCard from "@/components/2077/aboutMe/FutureAboutMeCard";
 
 export default function FutureHome() {
-  const router = useRouter();
-  const generateId = () => crypto.randomUUID();
-  const { openFolders, updateOpenFolders, hiddenFolders, updateHiddenFolders, updatePastWindowActive, updateSelectedIconOffice } = useContext(DisplayContext);
+  const { t } = useTranslation();
+  const { openWindow, openFolders, pastWindowActive } = useContext(DisplayContext);
 
-  const handleClick = (project: IList) => {
-          const isAlreadyOpen = openFolders.some(el => el.name === project.name);
-          if (!isAlreadyOpen) {
-              const arr = hiddenFolders.filter(el => el !== project.name);
-      
-              updateOpenFolders(prev => [...prev, project]);
-              updateHiddenFolders(arr);
-          }
-              updatePastWindowActive(project.name);
-              updateSelectedIconOffice('');
+  const canResize = (name: string) => ![t('systemcore'), t('shutFuture'), t('contactFuture'), t('language')].includes(name);
+
+  const handleClickSideBar = (icon : IFolder | IList, isFuture: boolean) => {
+    openWindow(icon, isFuture);
   };
 
   return (
-    <div className="w-full h-screen p-[1rem] future-font bg-[url('/images/futureBackground.jpg')] bg-cover bg-center bg-no-repeat">
-      <div className="relative w-full h-full flex items-center justify-center">
+    <div className="w-full h-screen p-[1rem] future-font bg-[url('/images/futureBackground.jpg')] bg-cover bg-center bg-no-repeat overflow-auto">
+      <div 
+        className="bg-slate-800/80 relative w-full min-h-full flex items-center justify-center" 
+        style={{ clipPath: "polygon(13% 3%, 87% 3%, 97% 13%, 97% 87%, 87% 97%, 13% 97%, 3% 87%, 3% 13%)"}}
+      >
         <svg 
-          className="absolute inset-0 w-full h-full pointer-events-none" 
-          viewBox="0 0 100 100" 
-          preserveAspectRatio="none"
-          style={{ overflow: 'visible' }}
+            className="absolute inset-0 pointer-events-none z-[100]" 
+            width="100%" 
+            height="100%" 
+            viewBox="0 0 100 100" 
+            preserveAspectRatio="none"
         >
-            <path 
-              d="M 13,3 L 87,3 L 97,13 L 97,87 L 87,97 L 13,97 L 3,87 L 3,13 Z"
-              fill="rgba(29, 41, 61, 0.9)"
-            />
-            <path 
+          <path 
               d="M 13,3 L 87,3 L 97,13 L 97,87 L 87,97 L 13,97 L 3,87 L 3,13 Z"
               fill="none" 
               stroke="#22d3ee" 
-              strokeWidth="2" 
+              strokeWidth="14" 
               vectorEffect="non-scaling-stroke"
-            />
-            <line x1="30" y1="3" x2="70" y2="3" stroke="#22d3ee" strokeWidth="10" vectorEffect="non-scaling-stroke" />
-            <line x1="30" y1="97" x2="70" y2="97" stroke="#22d3ee" strokeWidth="10" vectorEffect="non-scaling-stroke" />
+          />
+          <path 
+              d="M 30,3 L 70,3 L 68,6 L 32,6 Z" 
+              fill="#22d3ee"
+          />
+          <path 
+              d="M 32,94 L 68,94 L 70,97 L 30,97 Z" 
+              fill="#22d3ee"
+          />
+          <path 
+              d="M 3,30 L 3,70 L 5,68 L 5,32 Z" 
+              fill="#22d3ee" 
+          />
+          <path 
+              d="M 97,30 L 97,70 L 95,68 L 95,32 Z" 
+              fill="#22d3ee" 
+          />
         </svg>
-        <div className="text-white z-50 flex flex-col space-y-[1rem] items-center">
-          UNDER CONSTRUCTION
-          <div 
-            className={`
-                relative
-                px-[1.5rem] 
-                py-[.5rem] 
-                outline-none 
-                w-fit 
-                text-[1rem]
-                md:text-[1.5rem] 
-                text-center 
-                cursor-pointer
-                past-font
-                flex items-center justify-center
-                text-[#22d3ee]
-                mt-[1rem]
-            `}
-            onClick={() => router.push('/')}
-          >
-              <svg 
-                  className="absolute inset-0 w-full h-full pointer-events-none" 
-                  viewBox="0 0 100 100" 
-                  preserveAspectRatio="none"
-                  style={{ overflow: 'visible' }}
-              >
-                  <path 
-                      d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
-                      fill="rgba(15, 23, 42, 0.4)" 
-                  />
-                  <path 
-                      d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z" 
-                      fill="none" 
-                      stroke="#22d3ee" 
-                      strokeWidth="2" 
-                      vectorEffect="non-scaling-stroke"
-                  />
-                  <line x1="30" y1="0" x2="70" y2="0" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
-                  <line x1="30" y1="100" x2="70" y2="100" stroke="#22d3ee" strokeWidth="6" vectorEffect="non-scaling-stroke" />
-              </svg>
-              <p className="relative z-10">Home</p>
-            </div>
-        </div>
-        {/*
-        <div className="grid gap-4 absolute top-[9%] left-[3%] w-[94%] h-[82%] grid-rows-10 grid-cols-10 p-[2rem]">
-          <div className="border row-span-4 col-span-3">1</div>
-          <div className="border row-span-4 col-span-3 col-start-1 row-start-5">5</div>
-          <div className="row-span-8 col-span-4 col-start-4 relative flex items-center justify-center">
+        <div className="flex flex-col overflow-auto p-[2rem] pt-[4rem] pb-[4rem] w-full h-full lg:overflow-visible lg:grid lg:gap-4 absolute lg:top-[9%] lg:left-[3%] lg:w-[94%] lg:h-[82%] lg:grid-rows-12 lg:grid-cols-10 lg:p-[2rem]">
+          <div className="order-1 row-span-2 col-span-3 col-start-1 row-start-9 lg:ml-[1rem] lg:order-none mb-8 lg:mb-0">
+            <FutureTime />
+          </div>
+          <div className="order-2 row-span-6 col-span-3 row-start-1 col-start-1 lg:ml-[1rem] lg:mt-[3rem] lg:order-none mb-8 lg:mb-0">
+            <FutureSetting />
+          </div>
+          <div className="order-3 row-span-10 col-span-4 col-start-4 relative flex items-center justify-center lg:order-none mb-8 lg:mb-0">
             <FutureProjectsList />
           </div>
-          <div className="border row-span-3 col-span-3 col-start-8">3</div>
-          <div className="border row-span-3 col-span-3 col-start-8 row-start-6">4</div>
-          <div className="row-span-2 row-start-9 col-span-10 mt-[5rem] border">
-            <div className="w-full h-full flex items-center">
-              {openFolders.map((folder: IFolder | IList, i:number) => (
-                <FutureProjectIcon
-                  key={generateId()}
-                  project={folder}
-                  i={i}
-                  handleClick={handleClick}
-                />
-              ))}
-            </div>
+          <div className="order-4 row-span-8 col-span-3 col-start-8 row-start-1 lg:mr-[1rem] lg:order-none mb-8 lg:mb-0">
+            <FutureAboutMeCard />
           </div>
+          <div className="order-5 row-span-2 col-span-3 col-start-8 row-start-9 lg:order-none mb-8 lg:mb-0">
+            <FutureMedia />
+          </div>
+          <div className="order-6 row-span-2 row-start-11 col-span-10 lg:order-none">
+            <FutureSideBar icons={openFolders} handleClick={handleClickSideBar}/>
+          </div>
+          {pastWindowActive === t('shutFuture') && (
+            <div className="fixed inset-0 z-[40] bg-black/10" />
+          )}
         </div>
-        {openFolders.length > 0 && openFolders.map((folder: IFolder | IList) => (
-          <FutureProject projectName={folder.name} key={generateId()} />
-        ))}
-          */}
+        {openFolders.length > 0 && openFolders.map((folder: IFolder | IList) =>{ 
+          const name = getValue(folder.name, true) as string;
+          const isSpecial = name === t('shutFuture') ;
+
+          return (
+            <FutureWindowLayout 
+              projectName={getValue(folder.name, true) as string} 
+              key={`window-${name}`}
+              minimize={!isSpecial}
+              resize={canResize(name)}
+            >
+              {folder.component ? (getValue(folder.component, true) as JSX.Element) : null}
+            </FutureWindowLayout>
+          );
+        })}
       </div>
     </div>
   );
