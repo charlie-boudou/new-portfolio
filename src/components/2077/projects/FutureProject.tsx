@@ -78,9 +78,16 @@ export default function FutureProject({projectName}: IFutureProjectProps) {
                     return (
                       <div key={`${stack}-${index}`} className="flex items-center space-x-[.5rem]">
                           <motion.div
-                              initial={isSkipped ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                              animate={controls}
-                              transition={{ delay: isSkipped ? 0 : currentStackDelay }}
+                              key={isSkipped ? `image-skipped-${index}` : `image-dynamic-${index}`}
+                              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                              animate={isSkipped 
+                                  ? { opacity: 1, y: 0, scale: 1 } 
+                                  : { opacity: 1, y: 0, scale: 1 }
+                              }
+                              transition={{ 
+                                  delay: isSkipped ? 0 : currentStackDelay,
+                                  duration: isSkipped ? 0 : 0.5 
+                              }}
                           >
                               <Image 
                                   src={arrowCircle} 
@@ -116,10 +123,16 @@ export default function FutureProject({projectName}: IFutureProjectProps) {
 
                       return (
                         <motion.div
-                            key={`image-${index}`}
-                            initial={isSkipped ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 10, scale: 0.95 }}
-                            animate={controls}
-                            transition={{ delay: isSkipped ? 0 : currentPicDelay }}
+                            key={isSkipped ? `image-skipped-${index}` : `image-dynamic-${index}`}
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={isSkipped 
+                                ? { opacity: 1, y: 0, scale: 1 } 
+                                : { opacity: 1, y: 0, scale: 1 }
+                            }
+                            transition={{ 
+                                delay: isSkipped ? 0 : currentPicDelay,
+                                duration: isSkipped ? 0 : 0.5 
+                            }}
                             className="relative overflow-hidden group border border-cyan-400/20 w-[15rem] h-[10rem]"
                         >
                             <div className="w-[15rem] h-[10rem] absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10" /> 
@@ -137,10 +150,17 @@ export default function FutureProject({projectName}: IFutureProjectProps) {
                 </div>
               </div>
               <motion.div 
+                key={isSkipped ? "link-skipped" : "link-dynamic"}
                 className="flex items-center justify-center my-[2rem]"
-                initial={isSkipped ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                animate={controls}
-                transition={{ delay: isSkipped ? 0 : delayLink }}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={isSkipped 
+                    ? { opacity: 1, y: 0, scale: 1 } 
+                    : { opacity: 1, y: 0, scale: 1 }
+                }
+                transition={{ 
+                    delay: isSkipped ? 0 : delayLink,
+                    duration: isSkipped ? 0 : 0.5 
+                }}
               >
                 <motion.div 
                     whileHover={{ 
