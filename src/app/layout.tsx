@@ -5,6 +5,11 @@ import "./globals.css";
 
 import { DisplayProvider } from '@/contexts/DisplayProvider';
 
+export const metadata = {
+  title: 'Portfolio Charlie',
+  description: 'Bienvenue dans mon univers',
+}
+
 export default function RootLayout({
   children,
 }: {
