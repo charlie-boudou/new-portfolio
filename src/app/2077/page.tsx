@@ -17,7 +17,7 @@ export default function FutureHome() {
   const { t } = useTranslation();
   const { openWindow, openFolders, pastWindowActive } = useContext(DisplayContext);
 
-  const canResize = (name: string) => ![t('systemcore'), t('shutFuture'), t('contactFuture'), t('language')].includes(name);
+  const canResize = (name: string) => ![t('systemcore'), t('shutFuture'), t('contactFuture'), t('language'), t('about')].includes(name);
 
   const handleClickSideBar = (icon : IFolder | IList, isFuture: boolean) => {
     openWindow(icon, isFuture);

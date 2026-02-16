@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useState, useEffect, useMemo } from "react";
+import { useContext, useState, useEffect, useMemo, useCallback } from "react";
 import { DisplayContext } from "../../../contexts/DisplayContext";
 import { IFolder } from '@/utils/types';
 import { closeWindow, hideWindow, getValue } from "@/utils/functions";
@@ -40,6 +40,7 @@ export default function FutureWindowLayout({
     const isActive = pastWindowActive === projectName;
     const isHidden = hiddenFolders.includes(projectName);
     const smallClip = "polygon(13% 3%, 100% 3%, 100% 87%, 87% 97%, 0% 97%, 0% 13%)";
+    const isAboutMe = projectName === getValue(t('about'), true);
 
     const dragBounds = useMemo(() => {
         if (typeof window === 'undefined') return undefined;
@@ -83,7 +84,9 @@ export default function FutureWindowLayout({
         bounds: dragBounds,
     });
 
-    const handleMinimize = () => hideWindow(projectName, pastWindowActive, updatePastWindowActive, updateHiddenFolders);
+    const handleMinimize = useCallback(() => { 
+        hideWindow(projectName, pastWindowActive, updatePastWindowActive, updateHiddenFolders);
+    }, [projectName, pastWindowActive, updatePastWindowActive, updateHiddenFolders]);
     const handleClose = () => closeWindow(projectName, pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, true);
 
     const containerStyle = useMemo(() => {
@@ -106,6 +109,12 @@ export default function FutureWindowLayout({
         }
         return `${base} w-full h-full`;
     }, [isMaximized, isMobile, projectName]);
+
+    useEffect(() => {
+        if (isAboutMe && !isMaximized) {
+            toggleMaximize();
+        }
+    }, [isAboutMe, toggleMaximize, isMaximized]);
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
