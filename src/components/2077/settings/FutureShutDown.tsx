@@ -31,12 +31,12 @@ export default function ShutDownMenu() {
     };
 
     return (
-        <div className="w-full h-full">
-            <div className="w-full group flex flex-col lg:flex-row items-center space-y-[.5rem] lg:space-x-[1rem] px-[2rem] mt-[1rem]">
+        <div className="w-full h-full overflow-hidden">
+            <div className="w-full group flex flex-col lg:flex-row items-center space-y-[.5rem] lg:space-x-[1rem] px-[2rem]">
                 <p className="tracking-[0.3em] text-cyan-400 uppercase">{t('systemAccess')}</p>
                 <p className="text-white uppercase">{shutDown(t).title}</p>
             </div>
-            <div className="w-full h-full flex flex-col mt-[1.5rem] px-[1rem]">
+            <div className="w-full h-full flex flex-col mt-[.5rem] px-[1rem]">
                 {shutDown(t).actions.map((action: string, index: number) => (
                     <div
                         key={index}

@@ -18,7 +18,7 @@ export default function FutureImageViewer() {
     const [selectedImage, setSelectedImage] = useState(allImages[0]);
 
     return (
-        <div className="relative flex flex-col h-full w-full text-white overflow-hidden">
+        <div className="relative flex flex-col h-full w-full text-white">
             <div className='flex xl:flex-row flex-col space-y-[.5rem] justify-between items-center w-[85%] m-auto px-[1.5rem] py-[1rem] bg-cyan-950/40 backdrop-blur-md z-10 '>
                 <div className="flex items-center gap-3">
                     <div className="w-[.5rem] h-[.5rem] bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse" />
