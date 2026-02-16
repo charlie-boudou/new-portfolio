@@ -80,9 +80,9 @@ export default function BreachProtocol() {
     };
 
     return (
-        <div className="w-full max-w-[900px] mx-auto p-[1.5rem] bg-slate-900/90 border border-cyan-400/30 text-cyan-400 shadow-2xl backdrop-blur-md">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-[2rem] border-b border-cyan-400/20 pb-[1rem]">
-                <div className="flex space-x-2">
+        <div className="w-[90%] mx-auto p-[1.5rem] bg-slate-900/90 border border-cyan-400/30 text-cyan-400 shadow-2xl backdrop-blur-md">
+            <div className="flex-1 flex flex-wrap items-center justify-between gap-4 mb-[2rem] border-b border-cyan-400/20 pb-[1rem]">
+                <div className="flex space-x-[.5rem]">
                     {(['EASY', 'MEDIUM', 'HARD'] as Difficulty[]).map((d) => (
                         <button
                             key={d}
@@ -106,8 +106,8 @@ export default function BreachProtocol() {
                 </button>
             </div>
 
-            <div className="flex justify-between mb-[2rem]">
-                <div className="text-[1.2rem] tracking-tighter uppercase italic font-bold">
+            <div className="flex flex-col md:flex-row flex-1 space-y-[.5rem] justify-between mb-[2rem]">
+                <div className="md:text-[1.2rem] truncate tracking-tighter uppercase italic font-bold">
                     <Typewriter text={`BREACH_PROTOCOL_v2.0_${difficulty}`} speed={0.05} />
                 </div>
                 <div className={`animate-pulse font-bold ${gameState === 'WON' ? 'text-green-400' : gameState === 'LOST' ? 'text-red-500' : 'text-[#CF5CCD]'}`}>
