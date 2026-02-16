@@ -1,7 +1,7 @@
 'use client';
 
 import FutureProjectsList from "@/components/2077/projects/FutureProjectsList";
-import { JSX, useContext} from "react";
+import { JSX, useContext, useEffect, useRef, useState} from "react";
 import { DisplayContext } from "../../contexts/DisplayContext";
 import { IFolder, IList} from "@/utils/types";
 import FutureSetting from "@/components/2077/settings/FutureSettings";
@@ -15,13 +15,29 @@ import FutureAboutMeCard from "@/components/2077/aboutMe/FutureAboutMeCard";
 
 export default function FutureHome() {
   const { t } = useTranslation();
+  const audioRef = useRef<HTMLAudioElement>(null);
   const { openWindow, openFolders, pastWindowActive } = useContext(DisplayContext);
-
+  
   const canResize = (name: string) => ![t('systemcore'), t('shutFuture'), t('contactFuture'), t('language'), t('about')].includes(name);
 
   const handleClickSideBar = (icon : IFolder | IList, isFuture: boolean) => {
     openWindow(icon, isFuture);
   };
+
+  useEffect(() => {
+    const playStartupSound = async () => {
+      if (audioRef.current) {
+        audioRef.current.load();
+        try {
+          await audioRef.current.play();
+        } catch (err) {
+          console.warn("Le son n'a pas pu démarrer car l'utilisateur n'a pas encore interagi avec la page.");
+        }
+      }
+    };
+    
+    playStartupSound();
+  }, [audioRef]);
 
   return (
     <div className="w-full h-screen p-[1rem] future-font bg-[url('/images/futureBackground.jpg')] bg-cover bg-center bg-no-repeat overflow-auto">
@@ -99,6 +115,7 @@ export default function FutureHome() {
           );
         })}
       </div>
+      <audio ref={audioRef} src="/sound/2077-Breaching.wav" preload="auto" />
     </div>
   );
 }

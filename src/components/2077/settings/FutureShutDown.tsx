@@ -1,7 +1,7 @@
 'use client';
 
 import { DisplayContext } from '../../../contexts/DisplayContext';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { shutDown } from '@/utils/datas';
 import { useTranslation } from 'react-i18next';
 import { closeWindow } from "@/utils/functions";
@@ -10,24 +10,42 @@ import { IFolder } from '@/utils/types';
 
 export default function ShutDownMenu() {
     const { t } = useTranslation();
-        const router = useRouter();
-        const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
+    const router = useRouter();
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const { updateOpenFolders, updatePastWindowActive } = useContext(DisplayContext);
 
-    const handleClick = (action: string) => {
+    const handleClick = async (action: string) => {
         const path = action === t('goFuture') ? '/1998' : '/';
-
+        
         if (action === t('restart')) {
             window.location.reload();
             return;
         }
 
-        closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, true);
+        if (audioRef.current) {
+            try {
+                audioRef.current.currentTime = 0;
+                await audioRef.current.play();
+                audioRef.current.onended = () => {
+                    updateOpenFolders([]);
+                    updatePastWindowActive('');
+                    router.push(path);
+                };
+            } catch (err) {
+                console.warn("Audio bloqué, redirection immédiate", err);
+                performFallbackRedirect(path);
+            }
+        } else {
+            performFallbackRedirect(path);
+        }
+    };
+    
+    const performFallbackRedirect = (path: string) => {
         updateOpenFolders([]);
         updatePastWindowActive('');
-
         setTimeout(() => {
             router.push(path);
-        }, 500);   
+        }, 1000); 
     };
 
     return (
@@ -59,6 +77,7 @@ export default function ShutDownMenu() {
                     </div>
                 ))}
             </div>
+            <audio ref={audioRef} src="/sound/2077-Open-Menu.wav" preload="auto" />
         </div>
     );
 };
