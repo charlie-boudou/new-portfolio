@@ -61,9 +61,9 @@ export default function PastTime() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [showVolumeControl]);
 
-    return (
+    return (         
         <div className="relative w-fit text-black px-[0.3rem] py-[0.2rem] border-2 border-gray-300 shadow-[-0.0625rem_-0.0625rem_0_0_black] border-t-[#424242] border-l-[#424242]">
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
                 <button
                     onClick={() => setShowVolumeControl(!showVolumeControl)}
                     className="focus:outline-none px-[.1rem] flex items-center"

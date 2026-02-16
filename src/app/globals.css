@@ -77,3 +77,34 @@ body {
     -ms-overflow-style: none !important;
   }
 }
+
+
+  .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      width: 0;
+      height: 0;
+      opacity: 0;
+  }
+  
+  .volume-slider::-moz-range-thumb {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      border: none !important;
+      background: transparent !important;
+  }
+  
+  .volume-slider::-ms-thumb {
+      width: 0;
+      height: 0;
+      opacity: 0;
+  }
+
+  .volume-slider::-webkit-slider-runnable-track {
+      background: transparent !important;
+  }
+  
+  .volume-slider::-moz-range-track {
+      background: transparent !important;
+  }
