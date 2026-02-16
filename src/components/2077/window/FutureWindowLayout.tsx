@@ -3,7 +3,7 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { DisplayContext } from "../../../contexts/DisplayContext";
 import { IFolder } from '@/utils/types';
-import { closeWindow, hideWindow } from "@/utils/functions";
+import { closeWindow, hideWindow, getValue } from "@/utils/functions";
 import PastWindowButton from "../../1998/desktop/window/PastWindowButton";
 import Image from 'next/image';
 import cross from '@/assets/cross.svg';
@@ -113,6 +113,31 @@ export default function FutureWindowLayout({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        if (projectName !== getValue(t('shutFuture'), true) as string) {
+            const handleClickOutside = (event: MouseEvent) => {
+                if (isHidden) return;
+                if (
+                    windowRef.current && 
+                    !windowRef.current.contains(event.target as Node) && 
+                    isActive
+                ) {
+                    const isTaskbarClick = (event.target as Element).closest('.past-taskbar-item');
+                    
+                    if (!isTaskbarClick) {
+                        handleMinimize();
+                    }
+                }
+            };
+
+            document.addEventListener("mousedown", handleClickOutside);
+            
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }
+    }, [isActive, isHidden, projectName, handleMinimize, windowRef, t]);
 
     return (
        <div
