@@ -24,7 +24,7 @@ export default function ShutDownMenu() {
         closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, true);
         updateOpenFolders([]);
         updatePastWindowActive('');
-        
+
         setTimeout(() => {
             router.push(path);
         }, 500);   
@@ -32,7 +32,7 @@ export default function ShutDownMenu() {
 
     return (
         <div className="w-full h-full">
-            <div className="w-full group flex flex-col lg:flex-row items-center space-y-[.5rem] lg:space-x-[1rem] px-[2rem] mt-[1.5rem]">
+            <div className="w-full group flex flex-col lg:flex-row items-center space-y-[.5rem] lg:space-x-[1rem] px-[2rem] mt-[1rem]">
                 <p className="tracking-[0.3em] text-cyan-400 uppercase">{t('systemAccess')}</p>
                 <p className="text-white uppercase">{shutDown(t).title}</p>
             </div>
