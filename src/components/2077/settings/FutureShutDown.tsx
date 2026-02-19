@@ -28,7 +28,7 @@ export default function ShutDownMenu() {
         setTimeout(() => {
             updateIsShutDown(false);
             router.push(path);
-        }, 4000); 
+        }, 3500); 
     };
 
     return (
