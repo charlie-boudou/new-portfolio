@@ -10,14 +10,14 @@ import Link from "next/link";
 
 export default function PastSettings() {
     const { t } = useTranslation();
-    const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
+    const { openFolders, updateOpenFolders, windowActive, updateWindowActive } = useContext(DisplayContext);
 
     const contacts = openFolders.find((folder: IFolder | IList) => getValue(folder.name, false) as string === t('contact')) as IFolder | undefined;
     const [tabActive, setTabActive] = useState<string>('GitHub');
     const activeContact = contacts?.list?.find((contact: IList) => contact.name === tabActive);
 
     const handleClick = () => {
-        closeWindow(t('contact'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, false);
+        closeWindow(t('contact'), windowActive, openFolders as IFolder[], updateOpenFolders, updateWindowActive, false);
     };
 
     return (

@@ -32,7 +32,7 @@ export default function FutureLanguage() {
         <div className="w-full lg:w-[30%] order-2 lg:order-1">
             <LanguageCard 
                 item={(languages?.infos?.[0]?.content?.[0] as ILanguage) || null} 
-                index={1} 
+                index={0} 
             />
         </div>
         <div className="relative w-[10rem] h-[10rem] md:w-[13rem] md:h-[13rem] order-1 lg:order-2 shrink flex items-center justify-center">

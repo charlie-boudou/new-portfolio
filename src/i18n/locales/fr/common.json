@@ -70,5 +70,10 @@
   "bioLoaded": "[BIO_TÉLÉCHARGÉE]",
   "coreValues": "VALEURS_FONDAMENTALES",
   "techManifest": "MANIFESTE_TECHNIQUE",
-  "extraData": "DONNEES_HORS_MATRICE"
+  "extraData": "DONNEES_HORS_MATRICE",
+  "pastShutWindow": "Arrêt du système",
+  "pastShutWindowDesc": "Fermeture des programmes et enregistrement de vos paramètres...",
+  "pastShutWindowTurnOff1": "Vous pouvez maintenant éteindre",
+  "pastShutWindowTurnOff2": "votre ordinateur en toute sécurité.",
+  "futureDisconnect": "Lien_neuronal : Déconnexion…"
 }

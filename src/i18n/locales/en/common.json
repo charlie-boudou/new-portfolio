@@ -70,6 +70,11 @@
   "bioLoaded": "[BIO_LOADED]",
   "coreValues": "CORE_VALUES",
   "techManifest": "Technical_Manifest",
-  "extraData": "EXTRACURRICULAR_DATA"
+  "extraData": "EXTRACURRICULAR_DATA",
+  "pastShutWindow": "System Shutdown",
+  "pastShutWindowDesc": "Closing programs and saving your settings...",
+  "pastShutWindowTurnOff1": "You can now safely",
+  "pastShutWindowTurnOff2": "shut down your computer.",
+  "futureDisconnect": "Neuronal_link : Disconnect…"
 }
 

@@ -7,7 +7,7 @@ import PastTabButton from "./PastTabButton";
 import { getValue } from '@/utils/functions';
 
 export default function PastTabsBar() {
-    const { openFolders, pastWindowActive } = useContext(DisplayContext);
+    const { openFolders, windowActive } = useContext(DisplayContext);
 
     return (
         <div className="flex items-center space-x-[.3rem] flex-1 overflow-y-auto scrollbar-none h-full">
@@ -22,7 +22,7 @@ export default function PastTabsBar() {
                             title={folderName} 
                             icon={folderIcon} 
                             key={`tabs-${folderName}`}
-                            isActive={pastWindowActive === folderName} 
+                            isActive={windowActive === folderName} 
                         />
                 )})}
             </div>

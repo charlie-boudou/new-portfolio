@@ -25,8 +25,8 @@ export default function Button({ title, handleClick }: IButtonProps) {
                 past-font
                 flex items-center justify-center
                 ${title === t('yes') 
-                    ? 'bg-[#BCBEBC] text-black border-t-[1.5px] border-t-white border-l-[1.5px] border-l-white border-r-[1.5px] border-r-[#7C7A7C] border-b-[1.5px] border-b-[#7C7A7C] shadow-[1px_1px_0_0_black,inset_-1px_-1px_0_0_#BCBEBC]'
-                    : 'text-[#22d3ee]'
+                    ? 'bg-[#BCBEBC] text-black past-font border-t-[1.5px] border-t-white border-l-[1.5px] border-l-white border-r-[1.5px] border-r-[#7C7A7C] border-b-[1.5px] border-b-[#7C7A7C] shadow-[1px_1px_0_0_black,inset_-1px_-1px_0_0_#BCBEBC]'
+                    : 'text-[#22d3ee] future-font'
                 }
             `}
             onClick={() => handleClick(title)}

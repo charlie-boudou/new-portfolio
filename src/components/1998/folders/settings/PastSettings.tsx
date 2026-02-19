@@ -12,7 +12,7 @@ import { DisplayContext } from '../../../../contexts/DisplayContext';
 
 export default function PastSettings() {
     const { t, i18n } = useTranslation();
-    const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive, selectedLanguage, updateSelectedLanguage } = useContext(DisplayContext);
+    const { openFolders, updateOpenFolders, windowActive, updateWindowActive, selectedLanguage, updateSelectedLanguage } = useContext(DisplayContext);
 
     const [selected, setSelected] = useState(selectedLanguage);
     const [tabActive, setTabActive] = useState<string>(t('general'));
@@ -23,7 +23,7 @@ export default function PastSettings() {
             updateSelectedLanguage(selected);
             i18n.changeLanguage(selected);
         }
-        closeWindow(t('settings'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, false);
+        closeWindow(t('settings'), windowActive, openFolders as IFolder[], updateOpenFolders, updateWindowActive, false);
     };
 
     return (

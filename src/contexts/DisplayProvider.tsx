@@ -10,12 +10,13 @@ export function DisplayProvider({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
 
   const [mounted, setMounted] = useState(false);
-  const [isPastMenuActive, setIsPastMenuActive] = useState<boolean>(false);
+  const [isMenuActive, setIsMenuActive] = useState<boolean>(false);
   const [openFolders, setOpenFolders] = useState<IOpenableItem[]>([]);
-  const [pastWindowActive, setPastWindowActive] = useState<string>('');
+  const [windowActive, setWindowActive] = useState<string>('');
   const [hiddenFolders, setHiddenFolders] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const [selectedIconOffice, setSelectedIconOffice] = useState<string>('');
+  const [isShutDown, setIsShutDown] = useState<boolean>(false);
 
   const openWindow = useCallback((item: IFolder | IList, isFuture: boolean) => {
     const name = getValue(item.name, isFuture) as string;
@@ -30,7 +31,7 @@ export function DisplayProvider({ children }: { children: React.ReactNode }) {
       setOpenFolders((prev) => [...prev, item]);
     }
 
-    setPastWindowActive(name);
+    setWindowActive(name);
     setSelectedIconOffice('');
   }, [openFolders]);
 
@@ -53,19 +54,21 @@ export function DisplayProvider({ children }: { children: React.ReactNode }) {
   return (
     <DisplayContext.Provider
       value={{
-        isPastMenuActive,
-        updateIsPastMenuActive: setIsPastMenuActive,
+        isMenuActive,
+        updateIsMenuActive: setIsMenuActive,
         openFolders,
         updateOpenFolders: setOpenFolders,
-        pastWindowActive,
-        updatePastWindowActive: setPastWindowActive, 
+        windowActive,
+        updateWindowActive: setWindowActive, 
         hiddenFolders,
         updateHiddenFolders: setHiddenFolders,
         selectedLanguage, 
         updateSelectedLanguage: changeLanguage,
         selectedIconOffice,
         updateSelectedIconOffice: setSelectedIconOffice,
-        openWindow
+        openWindow,
+        isShutDown,
+        updateIsShutDown: setIsShutDown
       }}
     >
       {children}

@@ -26,9 +26,9 @@ export default function ChoiceCard() {
                 `}
             >
                 <div 
-                    className="bg-[#030171]/80 p-[.3rem] text-white flex justify-between items-center shrink-0"
+                    className="bg-[#030171]/80 past-font p-[.3rem] text-white flex justify-between items-center shrink-0"
                 >
-                    <p>1998</p>
+                    <p>{`</> Charlie - Portfolio 1.0`}</p>
                 </div>
                 <div className='w-full h-full flex flex-col'>
                     <div className='text-black w-full px-[.3rem] py-[.1rem] border-t-2 border-l-2 border-b-2 border-gray-300 border-b-[#424242] shadow-[0_1px_0_0_black,0_-1px_0_0_white] shrink-0 border-r-0'>
@@ -84,9 +84,9 @@ export default function ChoiceCard() {
                     style={{ clipPath: "polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%)" }}
                 >
                     <div 
-                        className="py-[.5rem] px-[1rem] text-[#22d3ee] flex justify-end items-center shrink-0 border-b-2 border-b-[#22d3ee]"
+                        className="py-[.6rem] px-[1rem] text-[#22d3ee] flex justify-end items-center shrink-0 border-b-2 border-b-[#22d3ee]"
                     >
-                        <p className="future-font tracking-widest text-[.9rem]">2077</p>
+                        <p className="future-font tracking-widest text-[.7rem]">{`</> Charlie - Neural Portfolio v.77`}</p>
                     </div>
                 </div>
             </div>

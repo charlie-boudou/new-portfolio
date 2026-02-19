@@ -14,11 +14,11 @@ interface IFutureSideBarProps {
 }
 
 export default function FutureSideBar({ icons, handleClick, selectedImage, setSelectedImage }: IFutureSideBarProps) {
-    const { updateOpenFolders, updatePastWindowActive } = useContext(DisplayContext);
+    const { updateOpenFolders, updateWindowActive } = useContext(DisplayContext);
 
     const handleCloseAll = () => {
         updateOpenFolders([]);
-        updatePastWindowActive('');
+        updateWindowActive('');
     };
 
     return (

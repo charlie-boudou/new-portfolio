@@ -2,12 +2,12 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { IFolder, IList } from '../utils/types';
 
 interface Display {
-  isPastMenuActive: boolean;
-  updateIsPastMenuActive: Dispatch<SetStateAction<boolean>>;
+  isMenuActive: boolean;
+  updateIsMenuActive: Dispatch<SetStateAction<boolean>>;
   openFolders: IFolder[] | IList[];
   updateOpenFolders: Dispatch<SetStateAction<IFolder[] | IList[]>>;
-  pastWindowActive: string;
-  updatePastWindowActive: Dispatch<SetStateAction<string>>;
+  windowActive: string;
+  updateWindowActive: Dispatch<SetStateAction<string>>;
   hiddenFolders: string[];
   updateHiddenFolders: Dispatch<SetStateAction<string[]>>;
   selectedLanguage: string;
@@ -15,6 +15,8 @@ interface Display {
   selectedIconOffice: string;
   updateSelectedIconOffice: Dispatch<SetStateAction<string>>;
   openWindow: (item: IFolder | IList, isFuture: boolean) => void;
+  isShutDown: boolean;
+  updateIsShutDown: Dispatch<SetStateAction<boolean>>;
 }
 
 export const DisplayContext = React.createContext(

@@ -35,19 +35,19 @@ export default function LanguageCard({ item, index }: IFutureLanguageCardProps) 
                 style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%)" }}
             > 
                 <div className="flex flex-col justify-center h-full flex-1 min-w-0">
-                    <span className="text-[0.5rem] text-cyan-400 opacity-50 mb-1 tracking-widest uppercase truncate">
+                    <p className="text-[0.6rem] text-cyan-400 opacity-50 mb-[.2rem] tracking-widest uppercase truncate">
                         {index === 0 ? "Primary_Link" : "Secondary_Link"}
-                    </span>
-                    <p className="text-white font-bold text-xs xl:text-sm tracking-tight truncate">
+                    </p>
+                    <p className="text-white font-bold text-[.8rem] xl:text-[1rem] tracking-tight truncate">
                         {item?.language}
                     </p>
-                    <p className="text-[0.6rem] text-zinc-500 mt-1 italic truncate max-w-full">
+                    <p className="text-[0.6rem] text-zinc-500 mt-[.2rem] italic truncate max-w-full">
                         {item?.layout}
                     </p>
                 </div>
 
                 <div className="flex items-center shrink-0">
-                    <div className="w-10 h-10 border border-cyan-400/30 rounded-full flex items-center justify-center text-[0.7rem] text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all">
+                    <div className="w-[2.5rem] h-[2.5rem] border border-cyan-400/30 rounded-full flex items-center justify-center text-[0.7rem] text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all">
                         {item?.icon}
                     </div>
                 </div>

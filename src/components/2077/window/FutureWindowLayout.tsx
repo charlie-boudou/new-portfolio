@@ -30,17 +30,19 @@ export default function FutureWindowLayout({
         openFolders,
         updateOpenFolders,
         updateHiddenFolders,
-        pastWindowActive,
-        updatePastWindowActive,
+        windowActive,
+        updateWindowActive,
         hiddenFolders
     } = useContext(DisplayContext);
 
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
 
-    const isActive = pastWindowActive === projectName;
+    const isActive = windowActive === projectName;
     const isHidden = hiddenFolders.includes(projectName);
     const smallClip = "polygon(13% 3%, 100% 3%, 100% 87%, 87% 97%, 0% 97%, 0% 13%)";
+    
     const isAboutMe = projectName === getValue(t('about'), true);
+    const isLanguage = projectName.toLowerCase().includes('langu');
 
     const dragBounds = useMemo(() => {
         if (typeof window === 'undefined') return undefined;
@@ -55,17 +57,19 @@ export default function FutureWindowLayout({
 
     const initialPos = useMemo(() => {
         if (typeof window === 'undefined') return { x: 100, y: 100 };
-        const width = projectName === t('language') ? window.innerWidth * 0.55 : window.innerWidth * 0.45;
+         
+        const width = isLanguage ? window.innerWidth * 0.55 : window.innerWidth * 0.45;
+        
         return {
             x: (window.innerWidth - width) / 2,
             y: window.innerHeight * 0.2,
         };
-    }, [projectName, t]);
+    }, [isLanguage]);
 
     const { pos, setPos, startDrag, windowRef, isDragging } = useWindowDrag({
         initialPos,
         enabled: !isMobile,
-        onDragStart: () => updatePastWindowActive(projectName),
+        onDragStart: () => updateWindowActive(projectName),
         isFuture: true,
         bounds: dragBounds,
     });
@@ -85,22 +89,23 @@ export default function FutureWindowLayout({
     });
 
     const handleMinimize = useCallback(() => { 
-        hideWindow(projectName, pastWindowActive, updatePastWindowActive, updateHiddenFolders);
-    }, [projectName, pastWindowActive, updatePastWindowActive, updateHiddenFolders]);
-    const handleClose = () => closeWindow(projectName, pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, true);
+        hideWindow(projectName, windowActive, updateWindowActive, updateHiddenFolders);
+    }, [projectName, windowActive, updateWindowActive, updateHiddenFolders]);
+    
+    const handleClose = () => closeWindow(projectName, windowActive, openFolders as IFolder[], updateOpenFolders, updateWindowActive, true);
 
     const containerStyle = useMemo(() => {
         const style: React.CSSProperties = {
             zIndex: isActive ? 100 : 50,
             left: (isMobile || isMaximized) ? '0' : pos.x,
             top: (isMobile || isMaximized) ? '0' : pos.y,
-            width: (isMobile || isMaximized) ? '100%' : (projectName === t('language') ? '55%' : '45%'),
-            height: (isMobile || isMaximized) ? '100%' : (resize ? '45%' : '40%'),
+            width: (isMobile || isMaximized) ? '100%' : (isLanguage ? '55%' : '45%'),
+            height: (isMobile || isMaximized) ? '100%' : (resize && !isLanguage ? '45%' : '40%'),
             transition: (isDragging || isResizing) ? 'none' : 'all 0.5s ease-in-out',
             willChange: 'width, height, top, left',
         };
         return style;
-    }, [pos, isMobile, isMaximized, isActive, projectName, t, resize, isDragging, isResizing]);
+    }, [pos, isMobile, isMaximized, isActive, resize, isDragging, isResizing, isLanguage]);
 
     const contentClasses = useMemo(() => {
         const base = "relative z-[30] transition-all duration-500 overflow-auto bg-slate-800";
@@ -149,11 +154,11 @@ export default function FutureWindowLayout({
     }, [isActive, isHidden, projectName, handleMinimize, windowRef, t]);
 
     return (
-       <div
+        <div
             ref={windowRef}
             className={`absolute flex flex-col items-center justify-center overflow-visible ${isHidden ? "hidden" : ""} ${isMaximized ? 'py-[3rem]' : 'py-[1rem]'}`}
             style={containerStyle}
-            onMouseDown={() => updatePastWindowActive(projectName)}
+            onMouseDown={() => updateWindowActive(projectName)}
         >
             <div
                 className="absolute inset-0 z-0 pointer-events-none transition-all duration-500"
@@ -260,7 +265,7 @@ export default function FutureWindowLayout({
                         isFuture
                     />
                 )}
-                {resize && !isMobile && (
+                {resize && !isMobile && !isLanguage && (
                     <PastWindowButton
                         icon={<div className="border-white border-t-3 border-1 w-[.8rem] h-[.8rem] m-auto" />}
                         handleClick={toggleMaximize}

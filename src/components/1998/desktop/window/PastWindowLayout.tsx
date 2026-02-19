@@ -37,8 +37,8 @@ export default function PastWindowLayout({
     updateOpenFolders,
     hiddenFolders,
     updateHiddenFolders,
-    pastWindowActive,
-    updatePastWindowActive,
+    windowActive,
+    updateWindowActive,
   } = useContext(DisplayContext);
 
   const folderName = useMemo(() => getValue(folder.name, false) as string, [folder.name]);
@@ -46,7 +46,7 @@ export default function PastWindowLayout({
   const { pos, setPos, startDrag, windowRef } = useWindowDrag({
     initialPos,
     enabled: draggable,
-    onDragStart: () => updatePastWindowActive(folderName),
+    onDragStart: () => updateWindowActive(folderName),
   });
 
   const { isMaximized, toggleMaximize } = useWindowMaximize({
@@ -58,16 +58,16 @@ export default function PastWindowLayout({
   const { startResize } = useWindowResize({ windowRef });
 
   const handleMinimize = useCallback(() => {
-    if (pastWindowActive === folderName) updatePastWindowActive('');
+    if (windowActive === folderName) updateWindowActive('');
     updateHiddenFolders((prev: string[]) => [...prev, folderName]);
-  }, [folderName, pastWindowActive, updatePastWindowActive, updateHiddenFolders]);
+  }, [folderName, windowActive, updateWindowActive, updateHiddenFolders]);
 
   const handleClose = useCallback(() => {
     updateOpenFolders(openFolders.filter((folder: IFolder | IList) => getValue(folder.name, false) !== folderName));
-    if (pastWindowActive === folderName) updatePastWindowActive('');
-  }, [folderName, openFolders, pastWindowActive, updateOpenFolders, updatePastWindowActive]);
+    if (windowActive === folderName) updateWindowActive('');
+  }, [folderName, openFolders, windowActive, updateOpenFolders, updateWindowActive]);
 
-  const isActive = pastWindowActive === folderName;
+  const isActive = windowActive === folderName;
   const isHidden = hiddenFolders.includes(folderName);
 
   const windowClasses = useMemo(() => `

@@ -1,7 +1,7 @@
 'use client';
 
 import { DisplayContext } from '../../../../contexts/DisplayContext';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { shutDown } from '@/utils/datas';
 import { useTranslation } from 'react-i18next';
 import PastButton from '../../PastButton';
@@ -12,9 +12,8 @@ import { IFolder } from '@/utils/types';
 export default function PastShutDown() {
     const { t } = useTranslation();
     const router = useRouter();
-    const audioRef = useRef<HTMLAudioElement>(null);
     
-    const { openFolders, updateOpenFolders, pastWindowActive, updatePastWindowActive } = useContext(DisplayContext);
+    const { openFolders, updateOpenFolders, windowActive, updateWindowActive, updateIsShutDown } = useContext(DisplayContext);
 
     const [selectedAction, setSelectedAction] = useState(t('shut'));
 
@@ -26,35 +25,20 @@ export default function PastShutDown() {
             }
 
             const targetPath = selectedAction === t('goFuture') ? '/2077' : '/';
-
-            if (audioRef.current) {
-                try {
-                    audioRef.current.currentTime = 0; 
-                    await audioRef.current.play();
-                    
-                    audioRef.current.onended = () => {
-                        updateOpenFolders([]);
-                        updatePastWindowActive('');
-                        router.push(targetPath);
-                    };
-                } catch (err) {
-                    console.log("Audio bloqué ou erreur", err);
-                    performFallbackRedirect(targetPath);
-                }
-            } else {
-                performFallbackRedirect(targetPath);
-            }
-            return;
+            
+            updateIsShutDown(true);
+            performFallbackRedirect(targetPath);
         }
-        closeWindow(t('shut'), pastWindowActive, openFolders as IFolder[], updateOpenFolders, updatePastWindowActive, false);
+        closeWindow(t('shut'), windowActive, openFolders as IFolder[], updateOpenFolders, updateWindowActive, false);
     };
 
     const performFallbackRedirect = (path: string) => {
         updateOpenFolders([]);
-        updatePastWindowActive('');
+        updateWindowActive('');
         setTimeout(() => {
+            updateIsShutDown(false);
             router.push(path);
-        }, 1500); 
+        }, 4500); 
     };
 
   return (
@@ -93,7 +77,6 @@ export default function PastShutDown() {
           <PastButton main title="OK" handleClick={() => handleClick('ok')} />
           <PastButton title="Cancel" handleClick={() => handleClick('cancel')} />
         </div>
-        <audio ref={audioRef} src="/sound/windows-98-shutdown.mp3" preload="auto" />
     </div>
   );
 }

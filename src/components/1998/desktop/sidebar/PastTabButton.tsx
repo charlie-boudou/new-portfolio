@@ -10,16 +10,16 @@ interface IPastTabButtonProps {
 }
 
 export default function PastTabButton({title, icon, isActive}: IPastTabButtonProps) {
-    const { hiddenFolders, updateHiddenFolders, updatePastWindowActive, pastWindowActive } = useContext(DisplayContext);
+    const { hiddenFolders, updateHiddenFolders, updateWindowActive, windowActive } = useContext(DisplayContext);
 
     const handleClick = (title: string) => {
-        if(pastWindowActive !== title) {
+        if(windowActive !== title) {
             const arr = hiddenFolders.filter((name) => name !== title);
             updateHiddenFolders(arr);
 
-            updatePastWindowActive(title)
+            updateWindowActive(title)
         } else {
-            updatePastWindowActive('')
+            updateWindowActive('')
             updateHiddenFolders(prev => [...prev, title]);
         } 
     }

@@ -13,7 +13,7 @@ import { getValue } from "@/utils/functions";
 export default function PastMenu() {
   const { t } = useTranslation();
   const menuRef = useRef<HTMLDivElement>(null);
-  const { openWindow, updateIsPastMenuActive } = useContext(DisplayContext);
+  const { openWindow, updateIsMenuActive } = useContext(DisplayContext);
 
   const [activeMenu, setActiveMenu] = useState<string>("");
 
@@ -24,21 +24,21 @@ export default function PastMenu() {
       setActiveMenu(isActive ? "" : folderName);
     } else {
       openWindow(folder, false);
-      updateIsPastMenuActive(false);
+      updateIsMenuActive(false);
     }
   }
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        updateIsPastMenuActive(false);
+        updateIsMenuActive(false);
         setActiveMenu("");
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [updateIsPastMenuActive]);
+  }, [updateIsMenuActive]);
 
   return (
     <div
