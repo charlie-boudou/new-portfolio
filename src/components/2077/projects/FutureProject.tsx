@@ -117,7 +117,6 @@ export default function FutureProject({projectName}: IFutureProjectProps) {
                 <div className='w-full flex items-center justify-center'>
                     <div className="grid md:grid-cols-2 gap-2">
                     {project.pictures && project.pictures.map((picture: string, index: number) => {
-                      if (index === 0) return null;
 
                       const currentPicDelay = delayPhotos + 0.5 + (index - 1) * 0.3;
 

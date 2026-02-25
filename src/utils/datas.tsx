@@ -462,9 +462,9 @@ export const projects: (t: TFunction) => IProject[] = (t) => ([
       future: <Image src={file} alt="language" className="w-[1.5rem] h-[1.5rem] mb-[.2rem]" />,
     },
     name: 'Le Comptoir des Arcs',
-    description: t('opx'),
+    description: t('comptoirdesarcs'),
     title: "/images/lecomptoirdesarcsTitle.png",
-    pictures: ['/images/memories.png', '/images/memories1.png', '/images/memories2.png', '/images/memories3.png', '/images/memories4.png'],
+    pictures: ['/images/comptoirdesarcs.png', '/images/comptoirdesarcs1.png', '/images/comptoirdesarcs2.png', '/images/comptoirdesarcs3.png'],
     stacks: [ 'REACT', 'NEXT.JS', 'TYPESCRIPT'],
     link: 'https://www.conciergerie-services-savoie.fr/'
   },
