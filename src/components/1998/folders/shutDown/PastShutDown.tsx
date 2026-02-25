@@ -18,6 +18,11 @@ export default function PastShutDown() {
     const [selectedAction, setSelectedAction] = useState(t('shut'));
 
     const handleClick = async (title: string) => {
+        if (title === 'cancel') {
+            closeWindow(t('shut'), windowActive, openFolders as IFolder[], updateOpenFolders, updateWindowActive, false);
+            return;
+        }
+        
         if (title === 'ok') {
             if (selectedAction === t('restart')) {
                 window.location.reload();
@@ -29,7 +34,6 @@ export default function PastShutDown() {
             updateIsShutDown(true);
             performFallbackRedirect(targetPath);
         }
-        closeWindow(t('shut'), windowActive, openFolders as IFolder[], updateOpenFolders, updateWindowActive, false);
     };
 
     const performFallbackRedirect = (path: string) => {
